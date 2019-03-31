@@ -24,14 +24,23 @@ Route::group(['midlware'=>['auth']], function () {
     //Поиск книг
     Route::group(['prefix' => 'bookSearch'], function () {
 
+        //Запрос страницы поиска книг
         Route::get('/', 'BookSearchController@index')->name('bookSearch.index');
+        //Получение формы составления библиотечной справки
+        Route::get('/toLibraryReport', 'BookSearchController@libraryReport')->name('bookSearch.libraryReport');
 
-        Route::post('/', 'BookSearchController@result')->name('bookSearch.result');
-
+        Route::post('/result', 'BookSearchController@result')->name('bookSearch.result');
     });
 
-        //Временное хранение списка книг
-        Route::post('/storageListBook', 'TemporaryStorageController@index')->name('temporaryStorageBookList');
+    //Временное хранение списка книг
+    Route::post('/storageListBook', 'TemporaryStorageController@index')->name('temporaryStorageBookList');
+
+    //Поиск книг
+    Route::group(['prefix' => 'libraryReports'], function () {
+
+        Route::get('/', 'LibraryReportController@index')->name('libraryReports.index');
+
+    });
 
    });
 

@@ -86,16 +86,16 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <input id="select_id" value="" hidden required>
-                                                <label for="recipient-name" class="control-label">Выбирите необходимое
-                                                    число экземпляров.</label>
-                                                <output id="level" for="quantity">50</output>
+                                                <p>В библиотеке присутствует
+                                                    <value id="quantity_max"></value>
+                                                    шт.
+                                                </p>
+                                                <label for="recipient-name" class="control-label">Количество экземпляров:</label>
+
+                                                <input class="form-control text-center" id="level" for="quantity" value="1" readonly>
                                                 <input id="quantity" name="quantity" type="range" class="form-control"
                                                        min="1"
                                                        max="100" placeholder="5" value="1" autofocus required>
-                                                <small class="form-control-feedback">В библиотеке присутствует
-                                                    <value id="quantity_max"></value>
-                                                    шт.
-                                                </small>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -117,22 +117,11 @@
                         var NumberOfCopies = document.getElementById("search_result_" + id + "_number_of_copies").innerText;
                         document.getElementById("quantity_max").textContent = NumberOfCopies;
                         document.getElementById("quantity").max = NumberOfCopies;
+                        document.getElementById("quantity").value = 1;
+                        document.getElementById("level").value = 1;
                     }
 
-                    $(function () {
-                        var el;
-                        $("#quantity").change(function () {
-                            el = $(this);
-                            el
-                                .next("#level")
-                                .text(el.val());
-                        })
-                            .trigger('change');
-                    });
-
                     function TemporaryFunction() {
-                        var Max = Number(document.getElementById("quantity").max);
-                        var Real = Number(document.getElementById("quantity").value);
                         var id = document.getElementById("select_id").value;
                         var bookId = document.getElementById("search_result_" + id + "_id").innerText;
                         var Author = document.getElementById("search_result_" + id + "_author").innerText;
@@ -143,7 +132,7 @@
                             url: '{{ route('temporaryStorageBookList') }}',
                             type: 'POST',
                             data: {
-                                bookId: bookId,
+                                Id: bookId,
                                 Author: Author,
                                 ViewOfPublication: ViewOfPublication,
                                 SmallDescription: SmallDescription,

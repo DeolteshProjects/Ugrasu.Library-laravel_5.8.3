@@ -193,10 +193,12 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul>
-                    
+
                     <li> <a class="waves-effect" href="{{ route('home') }}" aria-expanded="false"><i class="fa fa-desktop"></i><span class="hide-menu">Главная <span class="label label-rounded label-info">{info}</span></span></a></li>
 
                     <li> <a class="waves-effect" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Поиск книг</span></a></li>
+
+                    <li> <a class="waves-effect" href="{{ route('libraryReports.index') }}" aria-expanded="false"><i class="fa fa-clock-o"></i><span class="hide-menu">Справки</span></a></li>
 
                 </ul>
             </nav>
@@ -227,7 +229,7 @@
                     </ol>
                 </div>
                 <div class="col-md-7 align-self-center text-right d-none d-md-block">
-                    <button type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Создать библиотечную справку</button>
+                    <a href="{{ route('libraryReports.index') }}" class="btn btn-info"><i class="fa fa-plus-circle"></i> Составить библиотечную справку</a>
                 </div>
             </div>
             <!-- ============================================================== -->
