@@ -17,4 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['midlware'=>['auth']], function () {
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    //Поиск книг
+    Route::group(['prefix' => 'bookSearch'], function () {
+
+        Route::get('/', 'BookSearchController@index')->name('bookSearch.index');
+
+        Route::post('/', 'BookSearchController@result')->name('bookSearch.result');
+
+    });
+
+        //Временное хранение списка книг
+        Route::post('/storageListBook', 'TemporaryStorageController@index')->name('temporaryStorageBookList');
+
+   });
+
