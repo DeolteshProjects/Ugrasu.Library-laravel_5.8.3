@@ -35,10 +35,12 @@ Route::group(['midlware'=>['auth']], function () {
     //Временное хранение списка книг
     Route::post('/storageListBook', 'TemporaryStorageController@index')->name('temporaryStorageBookList');
 
-    //Поиск книг
+    //Библиографические справки
     Route::group(['prefix' => 'libraryReports'], function () {
 
-        Route::get('/', 'LibraryReportController@index')->name('libraryReports.index');
+        Route::get('/create', 'LibraryReportController@create')->name('libraryReports.create');
+
+        Route::get('/seed', 'LibraryReportController@seed')->name('libraryReports.seed');
 
     });
 

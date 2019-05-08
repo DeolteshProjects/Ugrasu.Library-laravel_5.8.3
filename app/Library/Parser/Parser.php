@@ -22,9 +22,11 @@ class Parser {
     //Количество экземпляров
     public $NumberOfCopies = "";
     //Год издания
-    public $YearOfPublication = "";
+    public $YearOfPublication = "(=^.^=)";
     //Краткое описание
     public $SmallDescription = "";
+    //Ссылка на книгу
+    public $Link = "(=^.^=)";
 
     //Финальный массив
     public $ResultParseArray = [];
@@ -41,6 +43,12 @@ class Parser {
         $line  =  str_replace(  "</dd>",  "",  $line  );
         $line  =  str_replace(  "<table width=\"100%\">",  "",  $line  );
         $line  =  str_replace(  "</table>",  "",  $line  );
+        $line  =  str_replace( "<td>", "", $line);
+        $line  =  str_replace( "</td>", "", $line);
+        $line  =  str_replace( "<td width=\"50%\">", "", $line);
+        $line  =  str_replace( "", "", $line);
+        $line  =  trim($line);
+        $line  =  trim($line);
         $line  =  trim($line);
         //$line = str_replace("[", "", $line);
         //$line = str_replace("]", "", $line);
@@ -60,7 +68,7 @@ class Parser {
     function getAuthor($line) {
         //Получение Автора
         try {
-            $Records = explode("<br> </b> <b> ", $line);
+            $Records = explode("<br> </b> <b>", $line);
             $line = explode("</b>", $Records[1]);
             $Author = $line[0];
             if ($this->debug) echo "<div class='alert alert-success'><p>Автор: ".$Author."</p></div>";
@@ -87,13 +95,19 @@ class Parser {
 
     //Метод получения вида издания
     function getViewOfPublication($line) {
+        if (strpos($line, "[Текст]")) $this->ViewOfPublication = "[Текст]";
+            else if (strpos($line, "[Электронный ресурс]")) $this->ViewOfPublication = "[Электронный ресурс]";
+            //else $ViewOfPublication = "Вид издания неизвестен";
+        /*
         $line = explode(" [", $line);
         $line = explode("] : ", $line[1]);
         $ViewOfPublication = $line[0];
         if ($this->debug) echo "<div class='alert alert-success'><p>Вид издания: ".$ViewOfPublication."</p></div>";
-        $this->ViewOfPublication = trim($this->getCleanString($ViewOfPublication));
-        $line = implode(" ",$line);
-    }
+        $ViewOfPublication = trim($this->getCleanString($ViewOfPublication));
+        $ViewOfPublication = trim($this->getCleanString($ViewOfPublication));
+        $this->ViewOfPublication = "[".$ViewOfPublication."]";
+        */
+        }
 
     //Метод получения типа издания
     function getTypeOfPublication($line) {
@@ -142,6 +156,7 @@ class Parser {
         if (!empty($this->YearOfPublication)) $this->ResultParseArray['YearOfPublication'] = $this->YearOfPublication;
         if (!empty($this->NumberOfCopies)) $this->ResultParseArray['NumberOfCopies'] = $this->NumberOfCopies;
         if (!empty($this->SmallDescription)) $this->ResultParseArray['SmallDescription'] = $this->SmallDescription;
+        if (!empty($this->Link)) $this->ResultParseArray['Link'] = $this->Link;
         return $this->ResultParseArray;
     }
 
@@ -174,15 +189,51 @@ class Parser {
         }
     }
 
+    function getLink($line) {
+        try {
+            if (strpos($line, "<a href=")) {
+                $line = explode("<a href=\"", $line);
+                $line = explode("\">", $line[1]);
+                $line = explode("</a>", $line[0]);
+            }
+            if (strpos($line, "<A HREF=")) {
+                $line = explode("<A HREF=\"", $line);
+                $line = explode("\">", $line[1]);
+                $line = explode("</A>", $line[0]);
+            }
+            $this->Link = $line[0];
+            if ($this->debug) echo "<div class='alert alert-success'><p>Ссылка на литературу: ". $this->Link ."</p></div>";
+        } catch (Exception $exception) {
+            $this->Link = "Не содержит";
+        }
+    }
+
     //Функция парсинга строки
     function getSmallParse($line) {
-        if ($this->debug) echo "<div class='alert alert-info'>Началась работа парсера</div>";
-        $this->getId($line);
-        $this->getAuthor($line);
-        $this->getViewOfPublication($line);
-        $this->getSmallDescription($line);
-        $this->getNumberOfCopies($line);
-        $result = $this->getFinalArray();
+        if ((strlen($line))>10) {
+            if ($this->debug) echo "<div class='alert alert-info'>Началась работа парсера</div>";
+            $this->getId($line);
+            $this->getAuthor($line);
+            $this->getViewOfPublication($line);
+            $this->getSmallDescription($line);
+            $this->getYearOfPublication($line);
+            if (strpos($line,"Имеются экземпляры в отделах")) {
+                $this->getNumberOfCopies($line);
+            }
+            if (strpos($line, "[Электронный ресурс]")) {
+                if (strpos($line, "<A HREF=")) {
+                    if (strpos($line, "U:\Издания РИЦ ЮГУ")) {
+                        $this->getNumberOfCopies($line);
+                    } else {
+                        $this->NumberOfCopies = "Неограниченно";
+                        $this->getLink($line);
+                    }
+                } else {
+                    $this->getNumberOfCopies($line);
+                }
+            }
+        }
+        $this->getFinalArray();
         if ($this->debug) echo "<div class='alert alert-info'>Работа парсера звершена</div></br>";
         return $this->ResultParseArray;
     }

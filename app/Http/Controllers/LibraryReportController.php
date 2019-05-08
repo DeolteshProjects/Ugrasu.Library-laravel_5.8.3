@@ -16,11 +16,7 @@ class LibraryReportController extends Controller
     public function index()
     {
         //
-        $report = Session::get('libraryList.records');
-        return view('libraryReports.index', [
-            'num' => count($report),
-            'report' => $report
-        ]);
+        return view('libraryReports.createFrom');
     }
 
     /**
@@ -30,7 +26,8 @@ class LibraryReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('libraryReports.createForm');
+
     }
 
     /**
@@ -42,6 +39,28 @@ class LibraryReportController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function seed() {
+        //
+        if (Session::has('libraryList.number')) {
+            $number = Session::get('libraryList.number');
+            //echo "В данный момент в сессии хранится ".$number. " записей.</br>";
+            //$array = Session::get('')
+            $report = Session::get('libraryList');
+            //print_r($report);
+            //return view('libraryReports.createForm');
+
+            //$years = $report[1];
+            //print_r($report['ViewOfPublication']);
+
+
+            return view('libraryReports.seed', [
+                'num' => $number,
+                'report' => $report
+            ]);
+
+        }
     }
 
     /**
@@ -63,6 +82,7 @@ class LibraryReportController extends Controller
      */
     public function edit(LibraryReport $libraryReport)
     {
+
         //
     }
 

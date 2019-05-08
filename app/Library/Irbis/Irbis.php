@@ -7,8 +7,8 @@ Class Irbis
     private $debug = false;
 
     //Локальные переменные для переноса класса
-    private $ip = '192.168.56.1', $port = '6666', $sock;
-    private $login = 'MASTER', $pass = 'MASTERKEY';
+    private $ip = '192.168.6.30', $port = '6666', $sock;
+    private $login = '1', $pass = '11';
     private $id = '554289', $seq = 0;
 
     /*АРМ ы
@@ -37,7 +37,12 @@ Class Irbis
     const INDEX_PREFIX      = 'I=';  // Шифр документа в базе
 
     public $arm = 'C'; // Каталогизатор
-    public $DataBase = 'FOND'; //
+    public $DataBase = [
+        '0' => 'FOND',
+        '1' => 'ZNANIUM',
+        '2' => 'URAIT',
+        '3' => 'LAN'
+    ]; //
     public $Server_Timeout = 30;
     public $server_ver = '';
     public $Error_Code = 0;
@@ -150,7 +155,6 @@ Class Irbis
             (!empty($Array["bookTitle"])) ? $Title = $Array['bookTitle'] : $Title = null;
             (!empty($Array["bookKeyWord"])) ? $WordKey = $Array['bookKeyWord'] : $WordKey = null;
             (!empty($Array["bookLimit"])) ? $Limit = $Array['bookLimit'] : $Limit = 1;
-            (!empty($Array["bookDataBase"])) ? $this->DataBase = $Array['bookDataBase'] : $this->DataBase = null;
         }
         //Совляем запрос
         $Query = "";
@@ -423,34 +427,42 @@ Class Irbis
         // $min, $max, $expression - для последовательного поиска. $expression = условие отбора
 
         //$Packet = implode("\n", array('K', $this->arm, 'K', $this->id, $this->seq, '', '', '', '', '', $this->DataBase, '"'.$Query.'"', $num_records, $first_record, $format, $min, $max, $expression));
-        $Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, $this->pass, $this->login, '', '', '', $this->DataBase, $Query, $num_records, $first_record, $format));
-        //$Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, '', '', '', '', '', $this->DataBase, $Query, $num_records, $first_record, $format));
-        $Packet = strlen($Packet) . "\n" . $Packet;
-
-        //$Packet = "K C K 558008 3 11 1 FOND \"A=Петров$\" 0 1 0 0";
+        //Начинаем замер времени поиска
         $timeStart = (float)microtime();
-        $Answer = $this->sendPacket($Packet);
-        if ($Answer === false) {
-            if ($this->debug) echo "<div class='alert alert-danger'>Не получен ответ от сервера выполнении поиска записей</div></div>";
-            return false;
-        }
-        if ($Answer[10] != 0) {
-            $this->Error_Code = $Answer[10];
-            $result['error_code'] = $this->Error_Code;
-            if ($this->debug) echo "<div class='alert alert-danger'>Получен код ошибки при выполнении поиска</div></div>";
-            return $result;
-        }
-        if (!empty($Answer[11])) {
-            if (!empty($Answer[11]))  if ($this->debug) echo "<div class='alert alert-success'>Количество найденных записей = " . $Answer[11] . "</div>";
-            $result['searchNumber'] = $Answer[11]; // количество найденных записей
-        } else {
-            if ($this->debug) echo "<div class='alert alert-warning'>По вашему запросу ничего не найденно</div>";
+
+        $searchNumber = 0;
+
+        for ($i=0; $i<4; $i++) {
+            $Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, $this->pass, $this->login, '', '', '', $this->DataBase[$i], $Query, $num_records, $first_record, $format));
+            //$Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, '', '', '', '', '', $this->DataBase, $Query, $num_records, $first_record, $format));
+            $Packet = strlen($Packet) . "\n" . $Packet;
+
+            //$Packet = "K C K 558008 3 11 1 FOND \"A=Петров$\" 0 1 0 0";
+            $Answer = $this->sendPacket($Packet);
+            if ($Answer === false) {
+                if ($this->debug) echo "<div class='alert alert-danger'>Не получен ответ от сервера выполнении поиска записей</div></div>";
+                return false;
+            }
+            if ($Answer[10] != 0) {
+                $this->Error_Code = $Answer[10];
+                $result[$this->DataBase[$i]]['error_code'] = $this->Error_Code;
+                if ($this->debug) echo "<div class='alert alert-danger'>Получен код ошибки при выполнении поиска</div></div>";
+                return $result;
+            }
+            if (!empty($Answer[11])) {
+                if (!empty($Answer[11]))  if ($this->debug) echo "<div class='alert alert-success'>Количество найденных записей = " . $Answer[11] . "</div>";
+                $searchNumber += $Answer[11]; // количество найденных записей
+            } else {
+                if ($this->debug) echo "<div class='alert alert-warning'>По вашему запросу ничего не найденно</div>";
+            }
+
+            $c = count($Answer) - 1;
+            for ($j = 11; $j < $c; $j++) {
+                $result[$this->DataBase[$i]]['records'][] = $Answer[$j];
+            }
         }
 
-        $c = count($Answer) - 1;
-        for ($i = 11; $i < $c; $i++) {
-            $result['records'][] = $Answer[$i];
-        }
+        $result['searchNumber'] = $searchNumber;
 
         if ($this->debug) echo "</div>";
         $searchTime = (float)microtime() - $timeStart;

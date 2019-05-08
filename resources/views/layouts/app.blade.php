@@ -86,69 +86,6 @@
                 <!-- ============================================================== -->
                 <ul class="navbar-nav my-lg-0">
                     <!-- ============================================================== -->
-                    <!-- Comment -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-Bell"></i>
-                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
-                            <ul>
-                                <li>
-                                    <div class="drop-title">Уведомления</div>
-                                </li>
-                                <li>
-                                    <div class="message-center">
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <div class="btn btn-success btn-circle"><i class="fa fa-book"></i></div>
-                                            <div class="mail-contnet">
-                                                <h5>Библиотека</h5> <span class="mail-desc">Ваша библиотечная справка была принята!</span> <span class="time">9:30 AM</span> </div>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>Показать все уведомления</strong> <i class="fa fa-angle-right"></i> </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- End Comment -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Messages -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-Mail"></i>
-                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                        </a>
-                        <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
-                            <ul>
-                                <li>
-                                    <div class="drop-title">У вас новые сообщения</div>
-                                </li>
-                                <li>
-                                    <div class="message-center">
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <div class="user-img"> <img src="assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
-                                            <div class="mail-contnet">
-                                                <h5>Пупкин Иван</h5> <span class="mail-desc">Вроде пока не рабоатает!</span> <span class="time">9:30</span> </div>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>Показать все сообщения</strong> <i class="fa fa-angle-right"></i> </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- End Messages -->
-                    <!-- ============================================================== -->
-
-                    <!-- ============================================================== -->
                     <!-- Profile -->
                     <!-- ============================================================== -->
                     <li class="nav-item dropdown u-pro">
@@ -194,11 +131,41 @@
             <nav class="sidebar-nav">
                 <ul>
 
-                    <li> <a class="waves-effect" href="{{ route('home') }}" aria-expanded="false"><i class="fa fa-desktop"></i><span class="hide-menu">Главная <span class="label label-rounded label-info">{info}</span></span></a></li>
+                    <li class="nav-small-cap"><blockquote>--- Преподаватель</blockquote></li>
 
-                    <li> <a class="waves-effect" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Поиск книг</span></a></li>
+                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Поиск книг</span></a></li>
 
-                    <li> <a class="waves-effect" href="{{ route('libraryReports.index') }}" aria-expanded="false"><i class="fa fa-clock-o"></i><span class="hide-menu">Справки</span></a></li>
+                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-creative-commons"></i><span class="hide-menu">Создать новую</span></a></li>
+
+                    <li @if (!Session::has('libraryList.number'))
+                            hidden
+                            @endif
+                    id="linkLibraryReportsSeed"> <a class="waves-effect label-light-info" href="{{ route('libraryReports.seed') }}" aria-expanded="false"><i class="fa fa-clock-o"></i><span class="hide-menu">Составляемая справка</span></a></li>
+
+                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-user-o"></i><span class="hide-menu">На проверке</span></a></li>
+
+                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-user-plus"></i><span class="hide-menu">Принятые</span></a></li>
+
+                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Отклоненные</span></a></li>
+
+                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Архив</span></a></li>
+
+
+
+
+                    <li class="nav-small-cap"><blockquote>--- Руководитель ОПОП</blockquote></li>
+
+                    <li> <a class="waves-effect label-light-megna" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Составленные справки<span class="label"><b class="text-success"><h4>7</h4></b></span></span></a></li>
+
+                    <li> <a class="waves-effect label-light-megna" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Архив</span></a></li>
+
+
+                    <li class="nav-small-cap"><blockquote>--- Библиотека</blockquote></li>
+
+                    <li> <a class="waves-effect label-light-success" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Cправки <span class="label"><b class="text-success"><h4>7</h4></b></span></span></a></li>
+
+                    <li> <a class="waves-effect label-light-success" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Архив</span></a></li>
+
 
                 </ul>
             </nav>
@@ -217,32 +184,9 @@
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="row page-titles">
-                <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor">Стартовая страница</h3>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Главная</a></li>
-                        <li class="breadcrumb-item active">Стартовая страница</li>
-                    </ol>
-                </div>
-                <div class="col-md-7 align-self-center text-right d-none d-md-block">
-                    <a href="{{ route('libraryReports.index') }}" class="btn btn-info"><i class="fa fa-plus-circle"></i> Составить библиотечную справку</a>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="col-12">
+
                     @yield('content')
-                </div>
-            </div>
+
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->
@@ -286,12 +230,76 @@
 <script src="{{ asset('node_modules/sparkline/jquery.sparkline.min.js') }}"></script>
 <!--Custom JavaScript -->
 <script src="{{ asset('js/custom.min.js') }}"></script>
+
+<!--Custom JavaScript -->
+<!-- <script src="{{ asset('js/my/reports.js') }}"></script> -->
+
+<!-- Data tables-->
+<!-- This is data table -->
+<script src="{{ asset('node_modules/datatables/jquery.dataTables.min.js') }}"></script>
+<!-- start - This is for export functionality only -->
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+<!-- end - This is for export functionality only -->
+<script>
+    $(function() {
+        $('#myTable').DataTable();
+        var table = $('#example').DataTable({
+            "columnDefs": [{
+                "visible": false,
+                "targets": 2
+            }],
+            "order": [
+                [2, 'asc']
+            ],
+            "displayLength": 25,
+            "drawCallback": function(settings) {
+                var api = this.api();
+                var rows = api.rows({
+                    page: 'current'
+                }).nodes();
+                var last = null;
+                api.column(2, {
+                    page: 'current'
+                }).data().each(function(group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                        last = group;
+                    }
+                });
+            }
+        });
+        // Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function() {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                table.order([2, 'desc']).draw();
+            } else {
+                table.order([2, 'asc']).draw();
+            }
+        });
+
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'Копировать', 'csv', 'excel', 'pdf', 'Печать'
+        ]
+    });
+</script>
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
 <script src="{{ asset('node_modules/styleswitcher/jQuery.style.switcher.js') }}"></script>
 
 <script src="{{ asset('js/fast_auth.js') }}"></script>
+
+
 </body>
 
 </html>

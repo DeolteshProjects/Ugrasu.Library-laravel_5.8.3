@@ -4,70 +4,93 @@
     <div class="card">
         <div class="card-body">
 
-
-            @if (!isset($searchNumber))
-                <h4 class="card-title">Записей в библиотеке по запросу {{ $searchQuery }} не найденно.</h4>
+            @if (($realSearchNumber < 1))
+                @if ($searchNumber > 0)
+                    <h4 class="card-title text-danger">Найденную по запросу {{ $searchQuery }} литературу, невозможно
+                        использовать для составления библиотечной справки.</h4>
+                    <h5>Возможные причины:</h5>
+                    <ul>
+                        <li>Количество экземпляров в библиотеке недостаточно для книгообеспечения.</li>
+                        <li>Найденная литература изданна ранее 2000 года.</li>
+                    </ul>
+                @else
+                    <h4 class="card-title">Литература по запросу {{ $searchQuery }} не была найденна.</h4>
+                @endif
                 <h6 class="card-subtitle">Поиск
                     занял {{ $searchTime }} сек.</h6>
-
             @else
-
                 <h4 class="card-title">Результаты поиска по запросу {{ $searchQuery }} "</h4>
-                <h6 class="card-subtitle">Найденно {{ $searchNumber }} записей / Поиск
-                    занял {{ $searchTime }} сек.</h6>
+                <h6 class="card-subtitle">Найденно {{ $searchNumber }} записей .</h6> <h6 class="text-danger"> Из
+                    них {{ ($searchNumber - $realSearchNumber) }} недоступны для использования в библиографической
+                    справке.</h6>
+                <h6 class="card-subtitle text-info">Доступны для использования в библиографической
+                    справке {{ $realSearchNumber }}
+                    .</h6>
+                <h6 class="card-subtitle">Поиск занял <i class="
+                    @if (($searchTime < 3) AND ($searchTime > -3))
+                            text-success">{{ $searchTime }}
+                        @else
+                            text-warning">{{ $searchTime }}
+                        @endif
+                    </i> сек.</h6>
                 <ul class="search-listing">
-                    @for ($i = 1; $i <= count($answer); $i++)
+                    @php
+                        $i = 0;
+                    @endphp
+                    @foreach ($answer as $result)
                         <li id="search_result_{{ $i }}">
-                            <h3>
+                            <div id="search_content_{{ $i }}">
+                                <h3>
+                                    <p>
+                                        <value id="search_result_{{ $i }}_id"
+                                               hidden>{{ $result['Id'] }}</value>
+                                        <value id="search_result_{{ $i }}_author">
+                                            @if (!empty($result['Author']))
+                                                {{ $result['Author'] }}
+                                            @else
+                                                Автор неизвестен
+                                            @endif
+                                        </value>
+                                        <value id="search_result_{{ $i }}_view_of_publication"
+                                               hidden>{{ $result['ViewOfPublication'] }}</value>
+                                    </p>
+                                </h3>
                                 <p>
-                                    <value id="search_result_{{ $i }}_id" hidden>{{ $answer[$i]['Id'] }}</value>
-                                    <value id="search_result_{{ $i }}_author">
-                                        @if (!empty($answer[$i]['Author']))
-                                            {{ $answer[$i]['Author'] }}
-                                        @else
-                                            Автор неизвестен
-                                        @endif
-                                    </value>
-                                    <value id="search_result_{{ $i }}_view_of_publication"
-                                           hidden>{{ $answer[$i]['ViewOfPublication'] }}</value>
+                                    <value id="search_result_{{ $i }}_small_description">{{ $result['SmallDescription'] }}</value>
                                 </p>
-                            </h3>
-                            <p>
-                                <value id="search_result_{{ $i }}_small_description">{{ $answer[$i]['SmallDescription'] }}</value>
-                            </p>
-                            <p>Количество экземпляров в библиотеке: <i
-                                        class='search-link'>
-                                    <value id="search_result_{{ $i }}_number_of_copies">{{ $answer[$i]['NumberOfCopies'] }}</value>
-                                    шт.</i></p>
-                            <button data-toggle="modal" data-target="#quantity_input_window"
-                                    class='btn btn-primary' id='".$i."' onclick='SelectBook( {{ $i }} )'>
-                                Добавить в
-                                справку
-                            </button>
-                            <button class='btn btn-primary' id='".$i."' onclick='addToReport( {{ $i }} )'>
-                                Добавить в
-                                дополнительную
-                            </button>
+                                @if (($result['Link'] !== "(=^.^=)") && ($result['Link'] !== "1"))
+                                    <p>Количество экземпляров в библиотеке: <i
+                                                class='search-link'>
+                                            <value id="search_result_{{ $i }}_number_of_copies">{{ $result['NumberOfCopies'] }}</value>
+                                            шт.</i></p>
+                                    <p>Ссылка на издание: <i
+                                                class='search-link'>
+                                            <value id="search_result_{{ $i }}_link"><a class="link text-info"
+                                                                                       href="{{ $result['Link'] }}">{{ $result['Link'] }}</a>
+                                            </value>
+                                        </i></p>
+                                @else
+                                    <p>Количество экземпляров в библиотеке: <i
+                                                class='search-link'>
+                                            <value id="search_result_{{ $i }}_number_of_copies">{{ $result['NumberOfCopies'] }}</value>
+                                            шт.</i></p>
+                                @endif
+                            </div>
+                            <div id="search_footer_{{ $i }}">
+                                <button data-toggle="modal" data-target="#quantity_input_window"
+                                        class='btn btn-primary' id='{{ $i }}'
+                                        onclick='SelectBook( {{ $i }} )'>
+                                    Добавить в
+                                    справку
+                                </button>
+                            </div>
                         </li>
                         <hr>
-                    @endfor
+                        @php
+                            $i++;
+                        @endphp
+                    @endforeach
                 </ul>
-                </ul>
-                <nav aria-label="Page navigation example" class="m-t-40">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Туда</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Сюда</a>
-                        </li>
-                    </ul>
-                </nav>
-
-
 
                 <div class="card">
                     <div class="card-body col-sm-5">
@@ -76,10 +99,12 @@
                              aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form id="quantity_book_form" name="quantity_book_form" onsubmit="return false" oninput="level.value = quantity.valueAsNumber">
+                                    <form id="quantity_book_form" name="quantity_book_form" onsubmit="return false"
+                                          oninput="level.value = quantity.valueAsNumber">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Добавление книги в библиотечную справку</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true" id="close_modal">
                                                 ×
                                             </button>
                                         </div>
@@ -90,10 +115,13 @@
                                                     <value id="quantity_max"></value>
                                                     шт.
                                                 </p>
-                                                <label for="recipient-name" class="control-label">Количество экземпляров:</label>
+                                                <label for="recipient-name" class="control-label">Количество
+                                                    экземпляров:</label>
 
-                                                <input class="form-control text-center" id="level" for="quantity" value="1" readonly>
-                                                <input id="quantity" name="quantity" type="range" class="form-control"
+                                                <input class="form-control text-center" id="level" for="quantity"
+                                                       value="1" readonly>
+                                                <input id="quantity" name="quantity" type="range"
+                                                       class="form-control"
                                                        min="1"
                                                        max="100" placeholder="5" value="1" autofocus required>
                                             </div>
@@ -143,6 +171,17 @@
                             },
                             success: function (data) {
                                 alert(data);
+                                document.getElementById("close_modal").click();
+                                if ( document.getElementById("linkLibraryReportsSeed").hidden = true ) {
+                                    document.getElementById("linkLibraryReportsSeed").hidden = false;
+                                }
+                                document.getElementById("search_result_" + id ).hidden = true;
+                                document.getElementById("search_result_" + id ).fadeIn(1000).fadeOut(1000, function(){$(this).remove()});
+
+                                //document.getElementById("search_result_" + id ).hidden = true;
+
+                                //Если все успешно заменяем кнопки на зеленую
+
                             },
                             error: function () {
                                 alert("Не работает");
