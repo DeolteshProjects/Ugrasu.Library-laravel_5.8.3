@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['midlware'=>['auth']], function () {
+Route::group(['midlware' => ['auth']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -44,5 +44,12 @@ Route::group(['midlware'=>['auth']], function () {
 
     });
 
-   });
+    //Тесты
+    Route::group(['prefix' => 'tests'], function () {
+
+        Route::get('/phpword', 'Tests\PhpWordController@index')->name('TestPhpWord.index');
+
+    });
+
+});
 

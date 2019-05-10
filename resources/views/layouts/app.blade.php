@@ -166,6 +166,11 @@
 
                     <li> <a class="waves-effect label-light-success" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Архив</span></a></li>
 
+                    <li class="nav-small-cap"><blockquote>--- Тесты</blockquote></li>
+
+                    <li> <a class="waves-effect label-light-warning" href="{{ route('TestPhpWord.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">PhpWordModules<span class="label"><b class="text-success"><h4>OK!</h4></b></span></span></a></li>
+
+
 
                 </ul>
             </nav>
