@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Session;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Gate::define('update-post', function ($user) {
+            if (Session::has('Authenticate.name')) {
+                return $user->name == Session::get('Authenticate.name');
+            }
+        });
+
         $this->registerPolicies();
 
         //

@@ -11,34 +11,25 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="my.diplom.ru" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Library/Parser/Parser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2093">
-              <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="165" selection-start-line="165" selection-end-line="165" />
+            <state relative-caret-position="13225">
+              <caret line="575" column="24" selection-start-line="575" selection-start-column="24" selection-end-line="575" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tests/PhpWordController.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/Compiler/CompilingLibraryReport.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-              <folding>
-                <element signature="e#46#74#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="452">
+              <caret line="349" column="42" lean-forward="true" selection-start-line="349" selection-start-column="42" selection-end-line="349" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -46,42 +37,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
+            <state relative-caret-position="1748">
+              <caret line="85" column="84" selection-start-line="85" selection-start-column="84" selection-end-line="85" selection-end-column="84" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/seed.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReports/Compiler/CompilerController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="721">
-              <caret line="208" column="104" selection-start-line="208" selection-start-column="104" selection-end-line="208" selection-end-column="104" />
+            <state relative-caret-position="506">
+              <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReports/LibraryReportDiscLibraryController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1702">
+              <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
               <folding>
-                <element signature="e#1261#7474#0#HTML" />
-                <element signature="e#8974#15833#0#HTML" />
+                <element signature="e#134#170#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TemporaryStorageController.php">
+        <entry file="file://$PROJECT_DIR$/app/Models/LibraryReports/Compiler/Compiler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="86" column="11" selection-start-line="86" selection-start-column="11" selection-end-line="86" selection-end-column="11" />
-              <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/result.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="67" column="84" selection-start-line="67" selection-start-column="84" selection-end-line="67" selection-end-column="84" />
+            <state relative-caret-position="5198">
+              <caret line="233" column="33" selection-start-line="233" selection-start-column="33" selection-end-line="233" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -90,19 +77,48 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>logout</find>
-      <find>login</find>
-      <find>blob_encode</find>
-      <find>-5555</find>
-      <find>со</find>
-      <find>getTy</find>
-      <find>Vie</find>
-      <find>View</find>
-      <find>view</find>
-      <find>:]</find>
-      <find>oci8</find>
-      <find>Small_de</find>
+      <find>pagination</find>
+      <find>Пи</find>
+      <find>see</find>
+      <find>num</find>
+      <find>active</find>
+      <find>mfnMax</find>
+      <find>termRead</find>
+      <find>termRecords</find>
+      <find>recordRead</find>
+      <find>'LIKE',</find>
+      <find>saveCreatingLibraryReportInDBAction</find>
+      <find>=&gt;$LibraryReport</find>
+      <find>Answer</find>
+      <find>(Дополнительная)</find>
+      <find>{{ $searchQuery }}</find>
+      <find>Соста</find>
+      <find>LibraryReportDisc.getCreatingLocalLibraryReport</find>
+      <find>saveCreatingLibraryReportInDB</find>
+      <find>Недоступно</find>
+      <find>LibraryReportDiscLocal</find>
+      <find>getCre</find>
+      <find>LibraryReportDisc.</find>
+      <find>show</find>
+      <find>editLibraryReport</find>
+      <find>edit</find>
+      <find>save</find>
+      <find>create</find>
+      <find>echo</find>
+      <find>delete</find>
+      <find>clean</find>
     </findStrings>
+    <replaceStrings>
+      <replace>$value</replace>
+      <replace>=&gt;$LR[0]-&gt;</replace>
+      <replace>&lt;i class='text-primary'&gt;{Дополнительная}&lt;/i&gt;</replace>
+      <replace>1</replace>
+      <replace>LR_Doc</replace>
+      <replace>L_RDoc</replace>
+      <replace>Compiler\Co</replace>
+      <replace>Compiler.</replace>
+      <replace>edit</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -110,41 +126,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
-        <option value="W:/domains/ugrasu.library/login.php" />
-        <option value="W:/domains/port.ru/resources/views/auth/login.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/auth/register.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/auth.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
-        <option value="$PROJECT_DIR$/resources/lang/ru/auth.php" />
-        <option value="$PROJECT_DIR$/resources/views/bookSearch/results.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
-        <option value="$PROJECT_DIR$/composer.json" />
-        <option value="$PROJECT_DIR$/resources/views/errors/OtherError.blade.php" />
-        <option value="$PROJECT_DIR$/public/css/pages/error-pages.css" />
-        <option value="$PROJECT_DIR$/resources/views/bookSearch/error.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/bookSearch/libraryReport.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/libraryReports/index.blade.php" />
-        <option value="$PROJECT_DIR$/public/js/my/alcs.js" />
-        <option value="$PROJECT_DIR$/public/js/my/workprogram.js" />
-        <option value="$PROJECT_DIR$/public/js/my/reports.js" />
-        <option value="$PROJECT_DIR$/app/Library/Irbis/Irbis.php" />
-        <option value="$PROJECT_DIR$/resources/views/bookSearch/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReportController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/temp.php" />
-        <option value="$PROJECT_DIR$/app/Library/Parser/Parser.php" />
-        <option value="$PROJECT_DIR$/resources/views/libraryReports/createForm.blade.php" />
-        <option value="$PROJECT_DIR$/app/Models/LibraryReport.php" />
-        <option value="$PROJECT_DIR$/config/database.php" />
-        <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BookSearchController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TemporaryStorageController.php" />
-        <option value="$PROJECT_DIR$/resources/views/bookSearch/result.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tests/OtherTestController.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/Compiled.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/waves.js" />
+        <option value="$PROJECT_DIR$/public/css/colors/default.css" />
+        <option value="$PROJECT_DIR$/public/css/style.css" />
+        <option value="$PROJECT_DIR$/public/css/spinners.css" />
+        <option value="$PROJECT_DIR$/resources/views/errors/OtherError.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/createLibraryReportFormModal.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReports/LibraryReportDiscCompiledController.php" />
         <option value="$PROJECT_DIR$/resources/views/libraryReports/seed.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Models/LibraryReports/LibraryReportDiscCompiled.php" />
+        <option value="$PROJECT_DIR$/resources/views/bookSearch/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/CompiledLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledDangerLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledNewLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/app/Models/BookSearchFilter.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReports/PrintLibraryReport.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Tests/PhpWordController.php" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/app/Models/LibraryReports/PrintLibraryReport.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledAllLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledSuccessSpecLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/Authenticate.php" />
+        <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
+        <option value="$PROJECT_DIR$/app/Models/Authenticate.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticateController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledSuccessLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/CompositionLibraryReports.blade.php" />
+        <option value="$PROJECT_DIR$/app/Models/LibraryReports/LibraryReportDiscLibrary.php" />
+        <option value="$PROJECT_DIR$/app/Library/Irbis/Irbis.php" />
+        <option value="$PROJECT_DIR$/app/Library/Parser/Parser.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/BookSearchController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReports/LibraryReportDiscController.php" />
+        <option value="$PROJECT_DIR$/app/Models/LibraryReports/LibraryReportDisc.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Compiler/CompilerController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/CompilingLibraryReport.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReports/PrintLibraryReportController.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/Compiler/ShowLibraryReport.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReports/LibraryReportDiscLibraryController.php" />
+        <option value="$PROJECT_DIR$/resources/views/bookSearch/result.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/ShowLibraryReport.blade.php" />
+        <option value="$PROJECT_DIR$/app/Models/LibraryReports/Compiler/Compiler.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/LibraryReports/Compiler/CompilerController.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/libraryReports/Compiler/CompilingLibraryReport.blade.php" />
       </list>
     </option>
   </component>
@@ -239,11 +271,17 @@
       <path value="$PROJECT_DIR$/vendor/phpoffice/common" />
       <path value="$PROJECT_DIR$/vendor/phpoffice/phpword" />
       <path value="$PROJECT_DIR$/vendor/pclzip/pclzip" />
+      <path value="$PROJECT_DIR$/vendor/intersvyaz/pdo-oci8" />
+      <path value="$PROJECT_DIR$/vendor/karlmonson/laravel-ping" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -285,12 +323,56 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="LibraryReports" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
               <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="LibraryReports" type="462c0819:PsiDirectoryNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="bookSearch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="libraryReports" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my.diplom.ru" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my.diplom.ru" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="libraryReports" type="462c0819:PsiDirectoryNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -309,17 +391,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\resources\views\libraryReports\Compiler" />
       <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\resources\views\libraryReports" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\resources\views\bookSearch" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Library" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\resources\views\layouts" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\resources\views" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Http\Controllers\Tests" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\public\node_modules\selectize" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Models" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\Library\Parser" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\Library\Irbis" />
-      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\resources\views\libraryReports\Compiler" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Http\Controllers\LibraryReports" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Models\LibraryReports" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Models\Compiler" />
+      <recent name="D:\Program Files (x86)\OSPanel53\OSPanel\domains\my.diplom.ru\app\Http\Controllers\Compiler" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -335,6 +418,9 @@
     </option>
   </component>
   <component name="RunManager" selected="Node.js.reports.js">
+    <configuration name="LibraryReportDiscLibrary.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/my.diplom.ru/Models/LibraryReports/LibraryReportDiscLibrary.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="reports.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/public/js/my/reports.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
@@ -344,6 +430,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.LibraryReportDiscLibrary.php" />
         <item itemvalue="Node.js.reports.js" />
       </list>
     </recent_temporary>
@@ -383,18 +470,82 @@
       <workItem from="1556615523539" duration="1028000" />
       <workItem from="1556616613591" duration="4951000" />
       <workItem from="1557315526574" duration="8381000" />
+      <workItem from="1557466703343" duration="4760000" />
+      <workItem from="1557473612595" duration="727000" />
+      <workItem from="1557545088876" duration="5950000" />
+      <workItem from="1557828261012" duration="4785000" />
+      <workItem from="1558187630699" duration="16000" />
+      <workItem from="1558273353037" duration="3792000" />
+      <workItem from="1558277534022" duration="5940000" />
+      <workItem from="1558691271197" duration="6110000" />
+      <workItem from="1558788607502" duration="1642000" />
+      <workItem from="1558792575300" duration="1939000" />
+      <workItem from="1558805628113" duration="12886000" />
+      <workItem from="1558854261252" duration="2364000" />
+      <workItem from="1558951446948" duration="5003000" />
+      <workItem from="1558971680858" duration="22467000" />
+      <workItem from="1559025564029" duration="9633000" />
+      <workItem from="1559040655402" duration="128000" />
+      <workItem from="1559064575527" duration="17479000" />
+      <workItem from="1559126029215" duration="8208000" />
+      <workItem from="1559155516859" duration="6078000" />
+      <workItem from="1559161806540" duration="843000" />
+      <workItem from="1559192242665" duration="3527000" />
+      <workItem from="1559232638585" duration="12795000" />
+      <workItem from="1559299655765" duration="7454000" />
+      <workItem from="1559319945224" duration="8012000" />
+      <workItem from="1559329713711" duration="7294000" />
+      <workItem from="1559388148898" duration="522000" />
+      <workItem from="1559388764805" duration="755000" />
+      <workItem from="1559399374508" duration="1229000" />
+      <workItem from="1559400687649" duration="1618000" />
+      <workItem from="1559407452424" duration="3259000" />
+      <workItem from="1559482651301" duration="4709000" />
+      <workItem from="1559487502114" duration="2919000" />
+      <workItem from="1559490556475" duration="3852000" />
+      <workItem from="1559555366359" duration="10843000" />
+      <workItem from="1559575824386" duration="12107000" />
+      <workItem from="1559627052749" duration="17279000" />
+      <workItem from="1559645392978" duration="650000" />
+      <workItem from="1559646564694" duration="4060000" />
+      <workItem from="1559655660236" duration="2982000" />
+      <workItem from="1559658734412" duration="16230000" />
+      <workItem from="1559677279050" duration="9812000" />
+      <workItem from="1559713991896" duration="6931000" />
+      <workItem from="1559727614343" duration="10985000" />
+      <workItem from="1559806405122" duration="1742000" />
+      <workItem from="1559835009396" duration="8636000" />
+      <workItem from="1559845759844" duration="807000" />
+      <workItem from="1559888850543" duration="10230000" />
+      <workItem from="1559919340643" duration="54000" />
+      <workItem from="1559920669467" duration="10063000" />
+      <workItem from="1559932083667" duration="20000" />
+      <workItem from="1559932153447" duration="7000" />
+      <workItem from="1559934186331" duration="379000" />
+      <workItem from="1560154336757" duration="34000" />
+      <workItem from="1560221613132" duration="1796000" />
+      <workItem from="1560223520752" duration="1567000" />
+      <workItem from="1560229078613" duration="2115000" />
+      <workItem from="1560247767540" duration="1353000" />
+      <workItem from="1560264970203" duration="1202000" />
+      <workItem from="1560365783346" duration="75000" />
+      <workItem from="1560704622638" duration="1443000" />
+      <workItem from="1560706337660" duration="365000" />
+      <workItem from="1560706754746" duration="20000" />
+      <workItem from="1560706867280" duration="1359000" />
+      <workItem from="1560708270530" duration="327000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137414000" />
+    <option name="totallyTimeSpent" value="451582000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21002132" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49944258" visible="true" weight="0.3022388" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Favorites" order="2" sideWeight="0.5005574" side_tool="true" weight="0.23880596" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -407,13 +558,14 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32998884" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32998884" />
+      <window_info anchor="bottom" id="PHP-CGI Server" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18230277" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2238806" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -427,7 +579,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32998884" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32998884" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" visible="true" weight="0.32998884" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -437,298 +589,365 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
-    <entry file="file://W:/domains/port.ru/routes/web.php" />
-    <entry file="file://W:/domains/ugrasu.library/login.php" />
-    <entry file="file://W:/domains/port.ru/resources/views/auth/login.blade.php" />
-    <entry file="file://$PROJECT_DIR$/resources/views/auth/register.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="22" selection-start-column="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://W:/domains/ugrasu.library/index.php" />
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/auth.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../OSPanel/OSPanel/domains/MySocialNetwork.Ru/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../port.ru/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/ru/pagination.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
-          <caret line="52" selection-start-line="52" selection-end-line="52" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/ru/passwords.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/ru/validation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2438">
-          <caret line="106" column="52" selection-start-line="106" selection-start-column="52" selection-end-line="106" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/ru/auth.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="69" selection-start-line="7" selection-start-column="69" selection-end-line="7" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://W:/domains/port.ru/app/Models/Blog/BlogCategory.php" />
-    <entry file="file://W:/domains/port.ru/app/Http/Controllers/Admin/Blog/BlogCategoryController.php" />
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/pages/error-pages.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/errors/OtherError.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+        <state relative-caret-position="276">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/error.blade.php">
+    <entry file="file://$PROJECT_DIR$/../../../../OSPanel/OSPanel/domains/localhost/admin-wrap/main/app-contact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" column="101" lean-forward="true" selection-start-line="17" selection-start-column="101" selection-end-line="19" selection-end-column="65" />
+          <folding>
+            <element signature="n#aside#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TemporaryStorageController.php" />
+    <entry file="file://$PROJECT_DIR$/config/oracle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="25" column="55" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/home_book.blade.php" />
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/BookSearch.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/common.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="127" column="18" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/libraryReport.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="55" column="56" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/my/alcs.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/my/workprogram.js" />
-    <entry file="file://$PROJECT_DIR$/public/js/fast_auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="790">
-          <caret line="48" column="1" lean-forward="true" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Library/Irbis/Irbis.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10143">
-          <caret line="441" column="36" selection-start-line="441" selection-start-column="36" selection-end-line="441" selection-end-column="36" />
+          <caret line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        <state relative-caret-position="391">
+          <caret line="17" column="93" lean-forward="true" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env.example">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tests/PhpWordController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="113" column="20" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/BookSearch.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/temp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1334">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/my/reports.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="49" selection-end-line="43" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Oci8/Oci8ServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/TemporaryStorage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/LibraryReport.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/createForm.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="135" column="18" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+        <state relative-caret-position="207">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
-            <element signature="e#40#69#0#PHP" expanded="true" />
+            <element signature="e#46#74#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/LibraryReports/PrintLibraryReport.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
+        <state relative-caret-position="399">
+          <caret line="210" column="51" selection-start-line="210" selection-start-column="51" selection-end-line="210" selection-end-column="51" />
+          <folding>
+            <element signature="e#125#164#0#PHP" expanded="true" />
+            <element signature="e#6629#10666#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/LibraryReports/WorkProgram.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="28" column="48" lean-forward="true" selection-start-line="24" selection-start-column="11" selection-end-line="28" selection-end-column="48" />
+          <folding>
+            <element signature="e#45#84#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReports/WorkProgramController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
+          <folding>
+            <element signature="e#134#170#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
+          <folding>
+            <element signature="e#45#81#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/Authenticate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+          <folding>
+            <element signature="e#39#73#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticateController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="13" column="28" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+          <folding>
+            <element signature="e#125#161#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Authenticate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+          <folding>
+            <element signature="e#110#149#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="63" column="99" selection-start-line="63" selection-start-column="41" selection-end-line="63" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/CompilingLibraryReport2.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="67" selection-start-line="12" selection-start-column="67" selection-end-line="12" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/LibraryReports/LibraryReportDiscLibrary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <folding>
+            <element signature="e#6#84#0#PHP" expanded="true" />
+            <element signature="e#125#164#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/BookSearchFilter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="74" column="9" lean-forward="true" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Library/Parser/Parser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2093">
-          <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/result.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="67" column="84" selection-start-line="67" selection-start-column="84" selection-end-line="67" selection-end-column="84" />
+        <state relative-caret-position="192">
+          <caret line="151" column="43" lean-forward="true" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BookSearchController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1657">
-          <caret line="73" column="52" selection-start-line="73" selection-start-column="52" selection-end-line="73" selection-end-column="52" />
+        <state relative-caret-position="422">
+          <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
           <folding>
             <element signature="e#40#66#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/seed.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Library/Irbis/Irbis.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="208" column="104" selection-start-line="208" selection-start-column="104" selection-end-line="208" selection-end-column="104" />
+        <state relative-caret-position="307">
+          <caret line="311" column="32" selection-start-line="311" selection-start-column="32" selection-end-line="311" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/libraryReport.blade.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/error.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="11" lean-forward="true" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/index.blade.php" />
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
-            <element signature="e#1261#7474#0#HTML" />
-            <element signature="e#8974#15833#0#HTML" />
+            <element signature="e#40#88#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/createForm.blade.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/createLibraryReportFormModal.blade.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/CompositionLibraryReports.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="31" column="66" selection-start-line="31" selection-start-column="66" selection-end-line="31" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledAllLibraryReports.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="87" column="48" lean-forward="true" selection-start-line="87" selection-start-column="48" selection-end-line="87" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledDangerLibraryReports.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="75" column="61" lean-forward="true" selection-start-line="75" selection-start-column="61" selection-end-line="75" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledNewLibraryReports.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledSuccessLibraryReports.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="84" column="28" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/LibraryCompiledSuccessSpecLibraryReports.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/Compiler/ShowLibraryReport.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReports/PrintLibraryReportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#135#171#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bookSearch/result.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="218" column="57" selection-start-line="218" selection-start-column="57" selection-end-line="218" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="77" column="55" lean-forward="true" selection-start-line="77" selection-start-column="55" selection-end-line="77" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/ShowLibraryReport.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/auth.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13225">
+          <caret line="575" column="24" selection-start-line="575" selection-start-column="24" selection-end-line="575" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
+        <state relative-caret-position="1748">
+          <caret line="85" column="84" selection-start-line="85" selection-start-column="84" selection-end-line="85" selection-end-column="84" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TemporaryStorageController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReports/Compiler/CompilerController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="86" column="11" selection-start-line="86" selection-start-column="11" selection-end-line="86" selection-end-column="11" />
+        <state relative-caret-position="506">
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LibraryReports/LibraryReportDiscLibraryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1702">
+          <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
           <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
+            <element signature="e#134#170#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/LibraryReports/Compiler/Compiler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="165" selection-start-line="165" selection-end-line="165" />
+        <state relative-caret-position="5198">
+          <caret line="233" column="33" selection-start-line="233" selection-start-column="33" selection-end-line="233" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tests/PhpWordController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/libraryReports/Compiler/CompilingLibraryReport.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-          <folding>
-            <element signature="e#46#74#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="452">
+          <caret line="349" column="42" lean-forward="true" selection-start-line="349" selection-start-column="42" selection-end-line="349" selection-end-column="42" />
         </state>
       </provider>
     </entry>

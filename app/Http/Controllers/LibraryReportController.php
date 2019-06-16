@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LibraryReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\LibraryReportDisc;
 
 class LibraryReportController extends Controller
 {
@@ -26,7 +27,6 @@ class LibraryReportController extends Controller
      */
     public function create()
     {
-        return view('libraryReports.createForm');
 
     }
 
@@ -45,21 +45,14 @@ class LibraryReportController extends Controller
         //
         if (Session::has('libraryList.number')) {
             $number = Session::get('libraryList.number');
-            //echo "В данный момент в сессии хранится ".$number. " записей.</br>";
-            //$array = Session::get('')
             $report = Session::get('libraryList');
-            //print_r($report);
-            //return view('libraryReports.createForm');
-
-            //$years = $report[1];
-            //print_r($report['ViewOfPublication']);
-
+            $Anketa = Session::get('LibraryReportDiscLocal.Creating');
 
             return view('libraryReports.seed', [
                 'num' => $number,
-                'report' => $report
+                'report' => $report,
+                'Anketa' => $Anketa
             ]);
-
         }
     }
 

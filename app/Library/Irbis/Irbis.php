@@ -5,12 +5,15 @@ Class Irbis
 {
     //Выводить ответы сервера?
     private $debug = false;
+    //0 - Сеть университета; 1 - Локальная сеть
 
     //Локальные переменные для переноса класса
     private $ip = '192.168.6.30', $port = '6666', $sock;
+    //private $ip = '127.0.0.1', $port = '6666', $sock;
     private $login = '1', $pass = '11';
+    //private $login = 'MASTER', $pass = 'MASTERKEY';
     private $id = '554289', $seq = 0;
-
+    
     /*АРМ ы
      *  АДМИНИСТРАТОР – ‘A‘
      *  КАТАЛОГИЗАТОР – ‘C’
@@ -47,7 +50,8 @@ Class Irbis
     public $server_ver = '';
     public $Error_Code = 0;
 
-    function __construct() {}
+    function __construct() {
+    }
 
     //Разлогирование при уничтожении класса
     function __destruct() { $this->logout(); }
@@ -154,7 +158,6 @@ Class Irbis
             (!empty($Array["bookAuthor"])) ? $Author = $Array['bookAuthor'] : $Author = null;
             (!empty($Array["bookTitle"])) ? $Title = $Array['bookTitle'] : $Title = null;
             (!empty($Array["bookKeyWord"])) ? $WordKey = $Array['bookKeyWord'] : $WordKey = null;
-            (!empty($Array["bookLimit"])) ? $Limit = $Array['bookLimit'] : $Limit = 1;
         }
         //Совляем запрос
         $Query = "";
@@ -276,132 +279,6 @@ Class Irbis
         return true;
     }
 
-
-// Получить максимальный MFN в базе
-    function mfnMax()
-    {
-        $Packet = implode("\n", array('O', 'C', 'O', $this->id, $this->seq, '', '', '', '', '', 'PERIZ'));
-        $Packet = strlen($Packet) . "\n" . $Packet;
-        $Answer = $this->sendPacket($Packet);
-        print_r($Packet);
-        print_r($Answer);
-        if ($Answer == false) return false;
-        if (isset($Answer[11])) echo $Answer[11];
-        if (!empty($Answer[10])) $this->Error_Code = $Answer[10];
-        if ($this->Error_Code > 0) {
-            $this->Error_Code = 0;
-            return $Answer[10];
-        } else {
-            return false;
-        }
-    }
-
-// Получить Версию Сервера Ирбис
-    function getServerVersion()
-    {
-        $Packet = implode("\n", array('1', $this->arm, '1', $this->id, $this->seq, '', '', '', '', ''));
-        $Packet = strlen($Packet) . "\n" . $Packet;
-        $Answer = $this->sendPacket($Packet);
-        if ($Answer === false) return false;
-        $this->Error_Code = $Answer[10];
-        if ($this->Error_Code > 0) {
-            $this->Error_Code = 0;
-            return $Answer[10];
-        } else {
-            return false;
-        }
-    }
-
-// Чтение словаря
-    function termRead($term, $num_terms = '', $format = '')
-    {
-        // см. инструкцию сервера "7.8	Функции работы со словарем базы данных"
-        // если указан формат, по в результат добавляются по одной записи для каждой строки словаря
-        $Packet = implode("\n", array('H', $this->arm, 'H', $this->id, $this->seq, '', '', '', '', '', $this->DataBase, $term, $num_terms, $format));
-        $Packet = strlen($Packet) . "\n" . $Packet;
-        $Answer = $this->sendPacket($Packet);
-        if ($Answer === false) return false;
-        print_r($Answer);
-        $this->Error_Code = $Answer[10];
-        if ($this->Error_Code == 0) {
-            // массив $terms
-            $terms = array();
-            $c = count($Answer) - 1;
-            for ($i = 11; $i < $c; $i++) {
-                $terms[] = $Answer[$i]; // формат ЧИСЛО_ССЫЛОК#ТЕРМИН=ЗНАЧЕНИЕ
-            }
-            return $terms;
-        } else return false;
-    }
-
-// Получить список ссылок термина
-    function termRecords($term, $num_postings = '', $first_posting = '')
-    {
-        // $term - список терминов для поиска. формат: "K=фантастика\nK=природа" = вывести список соответствующих хотя бы одному из терминов
-        // $num_postings = количество возвращаемых записей из списка, если = 0 то возвращается MAX_POSTINGS_IN_PACKET записей
-        // если $first_posting = 0 - возвращается только количество записей, если больше - указывает смещение первой возвращаемой записи из списка
-        $first_posting = (int)$first_posting;
-        $Packet = implode("\n", array('I', $this->arm, 'I', $this->id, $this->seq, '', '', '', '', '', $this->DataBase, $num_postings, $first_posting, '', $term));
-        $Packet = strlen($Packet) . "\n" . $Packet;
-        $Answer = $this->sendPacket($Packet, true);
-        if ($Answer === false) return false;
-        $this->Error_Code = $Answer[10];
-        /* основной формат для результатов поиска
-                MFN#TAG#OCC#CNT (см. инструкцию к серверу "6.5.3.1	Обыкновенный формат записи IFP")
-                    MFN – номер записи;
-                    TAG – идентификатор поля назначенный при отборе терминов в словарь;
-                    OCC – номер повторения;
-                    CNT – номер термина в поле.
-        */
-
-        if ($this->Error_Code == 0) {
-            $records = array();
-            $c = count($Answer) - 1;
-            for ($i = 11; $i < $c; $i++) {
-                $ret = explode('#', $Answer[$i]);
-                // для упрощения возвращаем только список MFN
-                // или количество найденных записей (при $first_posting == 0)
-                $records = $ret;
-            }
-            return $records;
-        } else return false;
-    }
-
-// Получить запись
-    function recordRead($mfn, $lock = false)
-    {
-        /*
-            record (
-                mfn
-                status - состояние записи
-                ver - версия записи
-                fileds - массив полей записи в формате [номер][повторение] = значение
-            )
-        */
-        $Packet = implode("\n", array('C', $this->arm, 'C', $this->id, $this->seq,  $this->pass, $this->login, '', '', '', $this->DataBase, $mfn, $lock ? 1 : 0, '' ,'', "@" ));
-        $Packet = strlen($Packet) . "\n" . $Packet;
-        $Answer = $this->sendPacket($Packet);
-        if ($Answer === false) return false;
-        $this->Error_Code = $Answer[10];
-        $mfn_status = explode('#', $Answer[11]);
-        $rec_version = explode('#', $Answer[12]);
-        $record = array(
-            'mfn' => $mfn_status[0],
-            'status' => (isset($mfn_status[1]) && $mfn_status[1] != '') ? $mfn_status[1] : 0,
-            'ver' => isset($rec_version[1]) ? $rec_version[1] : 0
-        );
-        if ($this->Error_Code != 0) return false;
-        $record['fields'] = array();
-        $c = count($Answer) - 1;
-        for ($i = 13; $i < $c; $i++) {
-            preg_match("/(\d+?)#(.*?)/U", $Answer[$i], $matches);
-            $field_num = (int)$matches[1];
-            $field_val = $matches[2];
-            $record['fields'][$field_num][] = $field_val;
-        }
-        return $record;
-    }
-
 // Поиск записей по запросу
     function recordsSearch($Query, $num_records = 1, $first_record = 0, $format = '@', $min = null, $max = null, $expression = null)
     {
@@ -433,7 +310,7 @@ Class Irbis
         $searchNumber = 0;
 
         for ($i=0; $i<4; $i++) {
-            $Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, $this->pass, $this->login, '', '', '', $this->DataBase[$i], $Query, $num_records, $first_record, $format));
+            $Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, $this->pass, $this->login, '', '', '', $this->DataBase[$i], $Query, 10000, $first_record, $format));
             //$Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, '', '', '', '', '', $this->DataBase, $Query, $num_records, $first_record, $format));
             $Packet = strlen($Packet) . "\n" . $Packet;
 

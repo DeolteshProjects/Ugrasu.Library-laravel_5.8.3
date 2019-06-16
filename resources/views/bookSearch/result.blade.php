@@ -6,20 +6,21 @@
 
             @if (($realSearchNumber < 1))
                 @if ($searchNumber > 0)
-                    <h4 class="card-title text-danger">Найденную по запросу {{ $searchQuery }} литературу, невозможно
-                        использовать для составления библиотечной справки.</h4>
+                    <h4 class="card-title text-danger">Найденную по запросу  литературу, невозможно
+                        использовать для составления вашей библиографической справки.</h4>
                     <h5>Возможные причины:</h5>
                     <ul>
                         <li>Количество экземпляров в библиотеке недостаточно для книгообеспечения.</li>
                         <li>Найденная литература изданна ранее 2000 года.</li>
                     </ul>
                 @else
-                    <h4 class="card-title">Литература по запросу {{ $searchQuery }} не была найденна.</h4>
+                    <h4 class="card-title">Литература по запросу не была найдена.</h4>
                 @endif
                 <h6 class="card-subtitle">Поиск
                     занял {{ $searchTime }} сек.</h6>
+                Попробуйте повторить поиск с другими параметрами: <button class="btn btn-outline-warning" data-toggle="modal" data-target="#ModalBookSearchForm">Повторить поиск</button>
             @else
-                <h4 class="card-title">Результаты поиска по запросу {{ $searchQuery }} "</h4>
+                <h4 class="card-title">Результаты поиска по запросу</h4>
                 <h6 class="card-subtitle">Найденно {{ $searchNumber }} записей .</h6> <h6 class="text-danger"> Из
                     них {{ ($searchNumber - $realSearchNumber) }} недоступны для использования в библиографической
                     справке.</h6>
@@ -39,6 +40,11 @@
                     @endphp
                     @foreach ($answer as $result)
                         <li id="search_result_{{ $i }}">
+                            <button
+                                    class='btn btn-outline-warning btn-sm pull-right' id='{{ $i }}'
+                                    onclick="alert('В планах на будующие')">
+                                Сообщить о некоректной записи
+                            </button>
                             <div id="search_content_{{ $i }}">
                                 <h3>
                                     <p>
@@ -53,6 +59,8 @@
                                         </value>
                                         <value id="search_result_{{ $i }}_view_of_publication"
                                                hidden>{{ $result['ViewOfPublication'] }}</value>
+                                        <value id="search_result_{{ $i }}_city_of_publication"
+                                                hidden>{{ $result['CityOfPublication'] }}</value>
                                     </p>
                                 </h3>
                                 <p>
@@ -76,16 +84,30 @@
                                             шт.</i></p>
                                 @endif
                             </div>
-                            <div id="search_footer_{{ $i }}">
-                                <button data-toggle="modal" data-target="#quantity_input_window"
-                                        class='btn btn-primary' id='{{ $i }}'
-                                        onclick='SelectBook( {{ $i }} )'>
-                                    Добавить в
-                                    справку
-                                </button>
-                            </div>
+                            @if (Session::has('LibraryReportDiscLocal.Creating'))
+                                <div class="alert-light" id="search_footer_{{ $i }}">
+                                    Добавить к справке 
+                                    <!--
+                                    <button data-toggle="modal" data-target="#quantity_input_window"
+                                            class='btn btn-success' id='{{ $i }}'
+                                            onclick='SelectBook( {{ $i }} , 0)'>
+                                        основной
+                                    </button>
+                                    -->
+                                    <button class='btn btn-outline-success btn-sm' id='{{ $i }}'
+                                            onclick='SelectBook( {{ $i }} , 0)'>
+                                        основной
+                                    </button>
+                                    или
+                                    <button class='btn btn-outline-primary btn-sm' id='{{ $i }}'
+                                            onclick='SelectBook( {{ $i }} , 1)'>
+                                        дополнительной
+                                    </button>
+                                    литературой
+                                </div>
+                            @endif
+                            <hr>
                         </li>
-                        <hr>
                         @php
                             $i++;
                         @endphp
@@ -102,7 +124,10 @@
                                     <form id="quantity_book_form" name="quantity_book_form" onsubmit="return false"
                                           oninput="level.value = quantity.valueAsNumber">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Добавление книги в библиотечную справку</h4>
+                                            <h4 class="modal-title">Добавление
+                                                <value id="selectedType"></value>
+                                                литературы в библиографическую справку
+                                            </h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true" id="close_modal">
                                                 ×
@@ -127,9 +152,9 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" onclick="TemporaryFunction()"
+                                            <button type="submit" onclick="AddBookInCreatingLibraryReport()"
                                                     class="btn btn-danger waves-effect waves-light">
-                                                Добавить
+                                                Добавить к справке
                                             </button>
                                         </div>
                                     </form>
@@ -140,54 +165,99 @@
                 </div>
 
                 <script>
-                    function SelectBook(id) {
+                    function Notification(title, description, status) {
+                        var bg;
+                        switch (status) {
+                            case "success":
+                                bg = "#06d79c";
+                                break;
+                            case "info":
+                                bg = "#398bf7";
+                                break;
+                            case "warning":
+                                bg = "#ffb22b";
+                                break;
+                            case "error":
+                                bg = "#ef5350";
+                                break;
+                        }
+                        $.toast({
+                            heading: '' + title + '', //Заголовок
+                            text: '' + description + '', //Описание
+                            position: 'top-right',  //Расположение
+                            bgColor: bg,    //Фон
+                            textColor: 'white', //Текст
+                            loaderBg: '#ff6849', //Фон лоадера
+                            icon: status,   //Иконка
+                            //hideAfter: 0,    //Таймер
+                            stack: 1,   //Максимальное количество
+                            showHideTransition: 'fade',   //Эффект
+                            allowToastClose: false, //Кнопка закрытия
+                        });
+                    }
+
+                    var type;
+
+                    function SelectBook(id, type_) {
                         document.getElementById("select_id").value = id;
                         var NumberOfCopies = document.getElementById("search_result_" + id + "_number_of_copies").innerText;
                         document.getElementById("quantity_max").textContent = NumberOfCopies;
                         document.getElementById("quantity").max = NumberOfCopies;
                         document.getElementById("quantity").value = 1;
                         document.getElementById("level").value = 1;
+                        if (type == 0) document.getElementById("selectedType").textContent = "основной";
+                        if (type == 1) document.getElementById("selectedType").textContent = "дополнительной";
+                        type = type_;
+                        AddBookInCreatingLibraryReport(id);
                     }
 
-                    function TemporaryFunction() {
-                        var id = document.getElementById("select_id").value;
+                    function AddBookInCreatingLibraryReport(id) {
+                        //var id = document.getElementById("select_id").value;
                         var bookId = document.getElementById("search_result_" + id + "_id").innerText;
                         var Author = document.getElementById("search_result_" + id + "_author").innerText;
                         var ViewOfPublication = document.getElementById("search_result_" + id + "_view_of_publication").innerText;
+                        var CityOfPublication = document.getElementById("search_result_" + id + "_city_of_publication").innerText;
                         var SmallDescription = document.getElementById("search_result_" + id + "_small_description").innerText;
-                        var NumberOfCopies = document.getElementById("quantity").value;
+                        var NumberOfCopies = document.getElementById("search_result_" + id + "_number_of_copies").innerText;
+                        //var NumberOfCopies = document.getElementById("quantity").value;
+                        //var NumberOfCopies
+                        var Max = document.getElementById("quantity").max;
+                        NumberOfCopies = 3;
                         $.ajax({
-                            url: '{{ route('temporaryStorageBookList') }}',
+                            url: '{{ route('Compiler.addBook') }}',
                             type: 'POST',
                             data: {
                                 Id: bookId,
                                 Author: Author,
                                 ViewOfPublication: ViewOfPublication,
+                                CityOfPublication: CityOfPublication,
                                 SmallDescription: SmallDescription,
-                                NumberOfCopies: NumberOfCopies
+                                NumberOfCopies: NumberOfCopies,
+                                Max: Max,
+                                Type: type
                             },
                             headers: {
                                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (data) {
-                                alert(data);
+                                Notification('Литература успешно добавленна в библиографическую справку', '', 'success');
                                 document.getElementById("close_modal").click();
-                                if ( document.getElementById("linkLibraryReportsSeed").hidden = true ) {
+                                if (document.getElementById("linkLibraryReportsSeed").hidden = true) {
                                     document.getElementById("linkLibraryReportsSeed").hidden = false;
                                 }
-                                document.getElementById("search_result_" + id ).hidden = true;
-                                document.getElementById("search_result_" + id ).fadeIn(1000).fadeOut(1000, function(){$(this).remove()});
-
-                                //document.getElementById("search_result_" + id ).hidden = true;
-
-                                //Если все успешно заменяем кнопки на зеленую
-
+                                document.getElementById("search_result_" + id).hidden = true;
+                                document.getElementById("compilingLink").href = "{{ route('Compiler.getCreatingLocalLibraryReport') }}";
+                                document.getElementById("compilingLink").innerText = "Перейти к составляемой справке";
+                                document.getElementById("compilingLink").removeAttribute('data-toggle');
+                                document.getElementById("compilingLink").removeAttribute('data-target');
+                                document.getElementById("search_result_" + id).fadeIn(1000).fadeOut(1000, function () {
+                                    $(this).remove()
+                                });
                             },
                             error: function () {
-                                alert("Не работает");
+                                Notification('Ошибка', 'Нет ответа от сервера', 'success');
                             }
                         });
-                        //document.getElementById("quantity").max = 0;
                     }
 
                 </script>

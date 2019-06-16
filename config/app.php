@@ -174,7 +174,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        //Yajra\Oci8\Oci8ServiceProvider::class,
+
+        //Oracle Driver
+        \Yajra\Oci8\Oci8ServiceProvider::class,
+        //Ping
+        Karlmonson\Ping\PingServiceProvider::class,
     ],
 
     /*
@@ -225,7 +229,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Ping' => Karlmonson\Ping\Facades\Ping::class,
     ],
 
 ];

@@ -34,70 +34,47 @@
 
 <body class="card-no-border">
 <!-- ============================================================== -->
-<!-- Preloader - style you can find in spinners.css -->
-<!-- ============================================================== -->
-<div class="preloader">
-    <div class="loader">
-        <div class="loader__figure"></div>
-        <p class="loader__label">{{ config('app.name', "Laravel") }}</p>
-    </div>
-</div>
-<!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <section id="wrapper">
     <div class="login-register" style="background-image:url({{ asset('images/background/login-register.jpg') }});">
         <div class="login-box card">
             <div class="card-body">
-                <form class="form-horizontal form-material" method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <h3 class="box-title m-b-20">{{ __('Login') }}</h3>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <input id="email" type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                                   value="{{ old('email') }}" placeholder="{{ __('E-Mail Address') }}" required
-                                   autofocus></div>
-                        @if ($errors->has('email'))
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                        @endif
+                <div class="form-group text-center">
+                    <div class="alert alert-danger text-center text-danger">
+                        <b>
+                            <p>Данные аутентификации не получены.</p>
+                            <p>Выполнените вход через систему <b><a class="alert-link" href="https://elios.ugrasu.ru/">"ELIOS"</a><b>
+                            </p>
+                        </b>
                     </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <input id="password" type="password"
-                                   class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                   name="password" placeholder="{{ __('Password') }}" required></div>
-                        @if ($errors->has('password'))
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                        @endif
-                    </div>
-                    <div class="form-group text-center">
-                        <div class="col-xs-12 p-b-20">
-                            <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit"> {{ __('Login') }}</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                            <div class="row">
-                                <div class="col-sm-12 pull-right">
-                                    <button class="col-sm-3 btn btn-primary" data-toggle="tooltip" title="Преподаватель"
-                                            onclick="fastTeacherAuth()"><i aria-hidden="true" class="fa fa-user"></i>
-                                    </button>
-                                    <button class="col-sm-3 btn btn-dark" data-toggle="tooltip"
-                                            title="Руководитель ОПОП" onclick="fastRucopopAuth()"><i aria-hidden="true"
-                                                                                                     class="fa fa-user-secret"></i>
-                                    </button>
-                                    <button class="col-sm-3 btn btn-success" data-toggle="tooltip" title="Библиотека"
-                                            onclick="fastLibraryAuth()"><i aria-hidden="true" class="fa fa-book"></i>
-                                    </button>
-                                </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="row text-white text-center">
+                            <div class="col-md-12 text-center">
+                                <h3 class="text-title">Вы можете войти как:</h3>
+                            </div>
+                            <div class="alert alert-warning">
+                                <small>Данный блок установлен только на период разработки и тестирования системы</small>
+                            </div>
+                            <div class="col-md-12">
+                                <a class="btn btn-primary col-md-12" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Сафонов Егор Иванович"])}}"><i aria-hidden="true"
+                                                                                                 class="fa fa-user"></i>
+                                    <span class="text-center">Преподаватель</span></a>
+                            </div>
+                            </br>
+                            <div class="col-md-12">
+                                <a class="btn btn-success col-md-12" data-toggle="tooltip" title="Библиотека"
+                                   href="{{ route('login',['auth_name'=>"Кутлуахметова Салима Тухватовна"])}}"><i
+                                            aria-hidden="true" class="fa fa-book"></i>
+                                    <span class="text-center">Сотрудник библиотеки</span></a>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

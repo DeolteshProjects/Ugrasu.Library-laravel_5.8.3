@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\LibraryReports\Compiler\Compiler;
+use Illuminate\Support\Facades\Session;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +25,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (Session::get('Authenticate.position') == 'library') {
+            return redirect( route('LibraryReportDiscLibraryCompiled.getAllOnlyNew'));
+        } else {
+            if (Session::has('LibraryReportDiscLocal.Creating')) {
+                return redirect(route('Compiler.getCreatingLocalLibraryReport'));
+            } else {
+                $LibraryReports = (new Compiler())->getAllFromAllLibraryReportSToPerson((Session::get('Authenticate.name')));
+                return view('home')->with([
+                        'LibraryReport' => $LibraryReports['LibraryReports'],
+                        'CountLibraryReport' => $LibraryReports['Counts']
+                    ]
+                );
+            };
+        }
+
     }
 }

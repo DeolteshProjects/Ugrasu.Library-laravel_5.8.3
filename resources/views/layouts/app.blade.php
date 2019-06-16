@@ -21,16 +21,32 @@
     <link href="{{ asset('node_modules/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <!-- Loader CSS -->
+    <link href="{{ asset('css/loader.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{ asset('css/colors/default.css') }}" id="theme" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="{{ asset('node_modules/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
+    <!-- TagsInput -->
+    <link href="{{ asset('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <!-- Contacts CSS -->
+    <link href="{{ asset('css/pages/contact-app-page.css') }}" rel="stylesheet">
+    <!-- Footable CSS -->
+    <link href="{{ asset('node_modules/footable/css/footable.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('node_modules/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
+    <!-- page css -->
+    <link href="{{ asset('css/pages/footable-page.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 <body class="fix-header card-no-border fix-sidebar">
+
+<div id="toastjs"></div>
 <!-- ============================================================== -->
 <!-- Preloader - style you can find in spinners.css -->
 <!-- ============================================================== -->
@@ -89,15 +105,14 @@
                     <!-- Profile -->
                     <!-- ============================================================== -->
                     <li class="nav-item dropdown u-pro">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/users/Safonov.jpg') }}" alt="user" class="img img-circle" /> <span class="hidden-md-down">{{ Auth::user()->name }}<i class="fa fa-angle-down"></i></span> </a>
+                        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="hidden-md-down">{{ \Illuminate\Support\Facades\Session::get('Authenticate.name') }}</span> </a>
                         <div class="dropdown-menu dropdown-menu-right animated flipInY">
                             <ul class="dropdown-user">
                                 <li>
                                     <div class="dw-user-box">
-                                        <div class="u-img"><img src="{{ asset('images/users/Safonov.jpg') }}" alt="user"></div>
                                         <div class="u-text">
-                                            <h4>{{ Auth::user()->name }}</h4>
-                                            <p class="text-muted">{{ Auth::user()->access }}</p></div>
+                                            <h4>{{ \Illuminate\Support\Facades\Session::get('Authenticate.name') }}</h4>
+                                            <p class="text-muted">{{ \Illuminate\Support\Facades\Session::get('Authenticate.department') }}</p></div>
                                     </div>
                                 </li>
                                 <li>
@@ -129,49 +144,71 @@
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
-                <ul>
+                <ul id="sidebarnav">
+                    <li> <a href="{{ route('home') }}" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Главная страница</span></a></li>
+                    @if(Session::get('Authenticate.position') == 'library')
+                        <li> <a href="{{ route('LibraryReportDiscLibraryCompiled.getSuccessSpec') }}" aria-expanded="false"><span class="hide-menu"><i class="fa fa-tasks"></i>Составляемые</span></a></li>
+                        <li class=""> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="icon-Box-Full"></i><span class="hide-menu">Дисциплины</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li class="label-light-info"> <a href="{{ route('LibraryReportDiscLibraryCompiled.getAll') }}" aria-expanded="false"><span class="hide-menu">Все</span></a></li>
+                                <li class="label-light-warning"><a href="{{ route('LibraryReportDiscLibraryCompiled.getAllOnlyNew') }}">На проверке</a></li>
+                                <li class="label-light-success"><a href="{{ route('LibraryReportDiscLibraryCompiled.getAllOnlySuccess') }}">Принятые</a></li>
+                                <li class="label-light-danger"><a href="{{ route('LibraryReportDiscLibraryCompiled.getAllOnlyDanger') }}">Отклоненные</a></li>
+                            </ul>
+                        </li>
+                      @elseif(Session::get('Authenticate.position') == 'none')
+                        <li class="label label-light-info"
+                            @if (!Session::has('LibraryReportDiscLocal.Creating')) hidden @endif
+                            id="linkLibraryReportsSeed"> <a id="compilingLink" class="waves-effect"
+                                @if (!Session::has('LibraryReportDiscLocal.Creating.Literature.AmountOfLiterature'))
+                                data-toggle="modal" data-target="#ModalBookSearchForm">Добавить литературу в
+                                @if(Session::get('LibraryReportDiscLocal.Edit'))
+                                    редактируемую
+                                @else
+                                    составляемую
+                                @endif
+                                справку</a>
+                                @else
+                                    href="{{ route('Compiler.getCreatingLocalLibraryReport') }}">Перейти к
+                                @if(Session::get('LibraryReportDiscLocal.Edit'))
+                                    редактируемой
+                                @else
+                                    составляемой
+                                @endifсправке</a>
+                                @endif
+                        </li>
 
-                    <li class="nav-small-cap"><blockquote>--- Преподаватель</blockquote></li>
+                        <li> <a data-toggle="modal"
+                                data-target="#ModalBookSearchForm" class="waves-effect" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Поиск литературы</span></a></li>
 
-                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Поиск книг</span></a></li>
+                        @if(!Session::has('LibraryReportDiscLocal'))
+                        <li> <a data-toggle="modal"
+                                data-target="#ModalCreateLibraryReportFormCenter" class="waves-effect" aria-expanded="false"><i class="fa fa-plus-square-o"></i><span class="hide-menu">Создать новую</span></a></li>
+                        @endif
 
-                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-creative-commons"></i><span class="hide-menu">Создать новую</span></a></li>
-
-                    <li @if (!Session::has('libraryList.number'))
-                            hidden
-                            @endif
-                    id="linkLibraryReportsSeed"> <a class="waves-effect label-light-info" href="{{ route('libraryReports.seed') }}" aria-expanded="false"><i class="fa fa-clock-o"></i><span class="hide-menu">Составляемая справка</span></a></li>
-
-                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-user-o"></i><span class="hide-menu">На проверке</span></a></li>
-
-                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-user-plus"></i><span class="hide-menu">Принятые</span></a></li>
-
-                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-user-times"></i><span class="hide-menu">Отклоненные</span></a></li>
-
-                    <li> <a class="waves-effect label-light-info" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Архив</span></a></li>
-
-
-
-
-                    <li class="nav-small-cap"><blockquote>--- Руководитель ОПОП</blockquote></li>
-
-                    <li> <a class="waves-effect label-light-megna" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Составленные справки<span class="label"><b class="text-success"><h4>7</h4></b></span></span></a></li>
-
-                    <li> <a class="waves-effect label-light-megna" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Архив</span></a></li>
-
-
-                    <li class="nav-small-cap"><blockquote>--- Библиотека</blockquote></li>
-
-                    <li> <a class="waves-effect label-light-success" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Cправки <span class="label"><b class="text-success"><h4>7</h4></b></span></span></a></li>
-
-                    <li> <a class="waves-effect label-light-success" href="{{ route('bookSearch.index') }}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Архив</span></a></li>
-
-                    <li class="nav-small-cap"><blockquote>--- Тесты</blockquote></li>
-
-                    <li> <a class="waves-effect label-light-warning" href="{{ route('TestPhpWord.index') }}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">PhpWordModules<span class="label"><b class="text-success"><h4>OK!</h4></b></span></span></a></li>
-
-
-
+                        @if (Session::has('LibraryReportDiscLocal.Creating'))
+                            <li class="label label-light-danger"> <a onclick="DeleteCreatingLibraryReport()" aria-expanded="false"><span class="waves-effect">Отменить
+                                        @if(Session::get('LibraryReportDiscLocal.Edit'))
+                                            редактирование
+                                            @else
+                                        составление
+                                        @endif
+                                        библиографической справки</span></a></li>
+                        @endif
+                    @endif
+                    @php
+                    /*
+                    <li class=""> <a class="has-arrow waves-effect waves-dark label-light-megna" href="#" aria-expanded="false"><i class="icon-Box-Full"></i><span class="hide-menu">Тесты</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('TestPhpWord.index') }}">PhpWord</a></li>
+                            <li><a href="{{ route('TestNetwork') }}">Сеть</a></li>
+                            <li><a href="{{ route('TestAuth') }}">Авторизация</a></li>
+                            <li><a href="{{ route('Test') }}">Прочий</a></li>
+                        </ul>
+                    </li>
+                    */
+                    @endphp
+                    <li> <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect" aria-expanded="false"><i class="fa fa-sign-out"></i><span class="hide-menu">Выход из системы</span></a></li>
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
@@ -214,10 +251,202 @@
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
 </div>
+
+
+
+<div class="modal fade " id="ModalCreateLibraryReportFormCenter" tabindex="1" role="dialog"
+     aria-labelledby="ModalCreateLibraryReportFormTitle" aria-hidden="true" data-backdrop="static"
+     data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalCreateLibraryReportFormLongTitle">Выберите необходимые
+                    параметры для
+                    составления библиографичесских справок</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    @csrf
+                    <div class="form-body">
+                        <div class="row p-t-20">
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <label class="control-label">Год набора</label>
+                                    <select class="form-control custom-select"
+                                            style="text-align-last: center" id="selectedYear"
+                                            name="selectedYear"
+                                            type="number" onchange="changeYear()" required>
+                                        <option value="" selected>Выберите год набора</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <!--/span-->
+                            <div class="col-md-12" id="selectedSpecBlock" hidden>
+                                <div class="form-group text-center">
+                                    <label class="control-label">Направление подготовки</label>
+                                    <select class="form-control custom-select"
+                                            style="text-align-last: center" id="selectedSpec"
+                                            name="selectedSpec"
+                                            type="text" onchange="changeSpec()" disabled required>
+                                        <option value="" selected>Выберите направление обучения
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <!--/span-->
+                            <div class="col-md-12" id="selectedDiscBlock" hidden>
+                                <div class="form-group text-center">
+                                    <label class="control-label">Дисциплина</label>
+                                    <select class="form-control custom-select"
+                                            style="text-align-last: center" id="selectedDisc"
+                                            name="selectedDisc"
+                                            type="text" onchange="changeDisc()" disabled required>
+                                        <option value="" selected>Выберите дисциплину</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--/span-->
+                            <div class="col-md-12" id="selectedFGOSBlock" hidden>
+                                <div class="form-group text-center">
+                                    <label class="control-label">ФГОС</label>
+                                    <select class="form-control custom-select"
+                                            style="text-align-last: center" id="selectedFGOS"
+                                            name="selectedFGOS"
+                                            type="text" onchange="changeFGOS()" disabled required>
+                                        <option value="" selected>Выберите ФГОС</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" id="loader" hidden>
+                                <div class="form-group row">
+                                    <div class="col-md-12 text-center text-info">
+                                        <div class="loader">
+                                            <div class="loader__figure"></div>
+                                            <p class="loader__label">Выполняется загрузка</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-outline-danger" data-dismiss="modal">Отменить
+                </button>
+                <button type="button" onclick="saveCreatingLibraryReport()" id="btn-select-all"
+                        class="btn btn-outline-success" data-dismiss="modal" hidden>Приступить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="ModalBookSearchForm" tabindex="2" role="dialog"
+     aria-labelledby="ModalBookSearchFormTitle" aria-hidden="true" data-backdrop="static"
+     data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalBookSearchFormLongTitle">Введите необходимые
+                    параметры для поиска литературы</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('bookSearch.result') }}" method="POST">
+                    @csrf
+                    <div class="form-body">
+                        <div class="row p-t-20">
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <label class="control-label">Автор</label>
+                                    <input class="form-control"
+                                           style="text-align-last: center" id="bookAuthor"
+                                           name="bookAuthor"
+                                           type="text" placeholder="Укажите автора...">
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <label class="control-label">Заглавие</label>
+                                    <input class="form-control"
+                                           style="text-align-last: center" id="bookTitle"
+                                           name="bookTitle"
+                                           type="text" placeholder="Введите заглавие...">
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <!--/span-->
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <label class="control-label"><b><b class="text-success">Ключевые</b></b> слова</label>
+                                    <input class="form-control"
+                                           style="text-align-last: center" id="bookKeyWord"
+                                           name="bookKeyWord"
+                                           type="text" placeholder="Введите ключевые слова...">
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <label class="control-label"><b><b class="text-danger">Стоп</b></b> слова</label>
+                                    <input class="form-control"
+                                           style="text-align-last: center" id="bookStopWord"
+                                           name="bookStopWord"
+                                           type="text" placeholder="Введите СТОП слова...">
+                                    <small>Из найденной литературы будут исключены результаты содержащие в описании СТОП слова</small>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <!--/span-->
+                            <!--
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <label class="control-label"><b><b class="text-success">Минимальный</b></b> год издания</label>
+                                    <input class="form-control"
+                                           style="text-align-last: center" id="bookMinYear"
+                                           name="bookMinYear"
+                                           type="number" min="{{ (date('Y'))-19 }}" max="{{ date('Y') }}"" placeholder="Введите минимальные годиздания...">
+                                </div>
+                            </div>
+                            -->
+                            <!--/span-->
+                            <div class="col-md-12" id="loader" tabindex="1" hidden>
+                                <div class="form-group row">
+                                    <div class="col-md-12 text-center text-info">
+                                        <div class="loader">
+                                            <div class="loader__figure"></div>
+                                            <p class="loader__label">Выполняется загрузка</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="submit" class="col-md-12 btn  btn-outline-info" id="bookSearch" onclick="bookSearchButtonClick()">Поиск
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->
 <!-- ============================================================== -->
+
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <script src="{{ asset('node_modules/jquery/jquery.min.js') }}"></script>
@@ -235,9 +464,10 @@
 <script src="{{ asset('node_modules/sparkline/jquery.sparkline.min.js') }}"></script>
 <!--Custom JavaScript -->
 <script src="{{ asset('js/custom.min.js') }}"></script>
-
 <!--Custom JavaScript -->
 <!-- <script src="{{ asset('js/my/reports.js') }}"></script> -->
+<script src="{{ asset('node_modules/toast-master/js/jquery.toast.js') }}"></script>
+<script src="{{ asset('js/my/notify.js') }}"></script>
 
 <!-- Data tables-->
 <!-- This is data table -->
@@ -252,55 +482,365 @@
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 <!-- end - This is for export functionality only -->
 <script>
-    $(function() {
-        $('#myTable').DataTable();
-        var table = $('#example').DataTable({
-            "columnDefs": [{
-                "visible": false,
-                "targets": 2
-            }],
-            "order": [
-                [2, 'asc']
-            ],
-            "displayLength": 25,
-            "drawCallback": function(settings) {
-                var api = this.api();
-                var rows = api.rows({
-                    page: 'current'
-                }).nodes();
-                var last = null;
-                api.column(2, {
-                    page: 'current'
-                }).data().each(function(group, i) {
-                    if (last !== group) {
-                        $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-                        last = group;
-                    }
-                });
-            }
-        });
-        // Order by the grouping
-        $('#example tbody').on('click', 'tr.group', function() {
-            var currentOrder = table.order()[0];
-            if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-                table.order([2, 'desc']).draw();
-            } else {
-                table.order([2, 'asc']).draw();
-            }
-        });
 
-    });
-    $('#example23').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'Копировать', 'csv', 'excel', 'pdf', 'Печать'
-        ]
-    });
+    function bookSearchButtonClick() {
+        document.getElementById("bookSearch").innerText = "Выполняется поиск";
+    }
+
+    //Завершение составления библиографической справки и удаление ее из сессии
+    function DeleteCreatingLibraryReport() {
+        $.ajax({
+            url: '{{ route( 'Compiler.delete') }}',
+            type: 'POST',
+            async: true,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                Notification('Библиографическая справка успешно очиценна', '', 'success');
+                document.getElementById("loader").hidden = true;
+                timer = setTimeout(function () {
+                    window.location.replace('{{ route('home') }}');
+                }, 500);
+            },
+            error: function () {
+                Notification('Произошла ошибка очистке справки от литературы', '', 'error');
+            }
+        })
+    }
+
+    function reset_selects(select) {
+        /*
+        Используемые селекты
+                selectedYear        -   Год набора
+                selectedLernForm    -   Форма обучения
+                selectedSpec        -   Направление подготовки
+                selectedDisc        -   Дисциплина
+                selectedFgos        -   ФГОС
+                btn-select-disc     -   Кнопка сосхранения всей формы выбора дисциплины
+         */
+        switch (select) {
+            case 1:
+                document.getElementById('selectedSpecBlock').hidden = true;
+                document.getElementById('selectedDiscBlock').hidden = true;
+                document.getElementById('selectedFGOSBlock').hidden = true;
+                document.getElementById("selectedSpec").options.length = 1;
+                document.getElementById("selectedSpec").disabled = true;
+                document.getElementById("btn-select-all").hidden = true;
+                break;
+            case 2:
+                document.getElementById('selectedDiscBlock').hidden = true;
+                document.getElementById('selectedFGOSBlock').hidden = true;
+                document.getElementById('selectedFGOS').disabled = true;
+                document.getElementById("selectedDisc").options.length = 1;
+                document.getElementById("selectedDisc").disabled = true;
+                document.getElementById("btn-select-all").hidden = true;
+                break;
+            case 3:
+                document.getElementById('selectedFGOSBlock').hidden = true;
+                document.getElementById('selectedFGOS').disabled = true;
+                document.getElementById("selectedFGOS").options.length = 1;
+                break;
+            default:
+                break;
+        }
+    }
+
+    function Notification(title, description, status) {
+        var bg;
+        switch (status) {
+            case "success":
+                bg = "#06d79c";
+                break;
+            case "info":
+                bg = "#398bf7";
+                break;
+            case "warning":
+                bg = "#ffb22b";
+                break;
+            case "error":
+                bg = "#ef5350";
+                break;
+        }
+        $.toast({
+            heading: '' + title + '', //Заголовок
+            text: '' + description + '', //Описание
+            position: 'top-right',  //Расположение
+            bgColor: bg,    //Фон
+            textColor: 'white', //Текст
+            loaderBg: '#ff6849', //Фон лоадера
+            icon: status,   //Иконка
+            //hideAfter: 0,    //Таймер
+            stack: 1,   //Максимальное количество
+            showHideTransition: 'fade',   //Эффект
+            allowToastClose: false, //Кнопка закрытия
+        });
+    }
+
+    /**
+     * Далее все функции идут примерно по хронологии действий
+     */
+
+    //Получаем года для списка
+    function writeSelectYear() {
+        //Инициализируем список годов поступления
+        var yearsSelect = document.getElementById("selectedYear");
+        //Берем текущий год в js
+        var currentDate = new Date();
+        var year;
+        //Если ранее июня, то берем еще за предыдущий год (календарный)
+        currentDate.getMonth() < 5 ? year = currentDate.getFullYear() - 1 : year = currentDate.getFullYear();
+        //Добавляем 1 год назад и 4 года вперед
+        for ($i = 1; $i <= 8; $i++) {
+            yearsSelect.options[$i] = new Option(($i + year - 6) + " - " + ($i + year - 5), ($i + year - 6));
+        }
+    }
+
+    writeSelectYear();
+
+
+    //Выбор года набора и загрузка направлений
+    function changeYear() {
+        //Отключаем и сбрасываем все последующие селекты
+        reset_selects(1);
+        var year = document.getElementById("selectedYear").value;
+        if (year == "") exit();
+        document.getElementById('loader').hidden = false;
+        //Запрос на загрузку направлений по году
+        $.ajax({
+            url: '{{ route( 'WorkProgram.getSpeciality') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                year: year
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                if (!data)
+                    $('#selectedSpec').append("value='NULL'>На выбранный год отсутсвует список направлений</option>");
+                else {
+                    var result = JSON.parse(data);
+                    if (Object.keys(result).length > 0) {
+                        for (i in result) {
+                            $('#selectedSpec').append('<option value="' + result[i]['fspecialitycode'] + ' | ' + result[i]['speciality'] + '">' + result[i]['fspecialitycode'] + ' | ' + result[i]['speciality'] + '</option>');
+                            i++;
+                        }
+                        document.getElementById('selectedSpecBlock').hidden = false;
+                        document.getElementById("selectedSpec").disabled = false;
+                        Notification('Направления обучения успешно загружены', '', 'success');
+                    } else {
+                        Notification('Направления на выбранный год набора не найдены', '', 'error');
+                    }
+                    document.getElementById('loader').hidden = true;
+                }
+            },
+            error: function () {
+                Notification('Произошла ошибка при загрузке направлений', '', 'error');
+            }
+        })
+    }
+
+    //Выбор направления и загрузка дисциплин
+    function changeSpec() {
+        //Отключаем и сбрасываем все последующие селекты
+        reset_selects(2);
+        //Запрос на загрузку направлений по году
+        var year = document.getElementById("selectedYear").value;
+        var speciality = document.getElementById("selectedSpec").value;
+        if (speciality == "") exit();
+        document.getElementById('loader').hidden = false;
+        $.ajax({
+            url: '{{ route( 'WorkProgram.getDisciplines') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                year: year, speciality: speciality
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                if (!data)
+                    $('#selectedDisc').append("value='NULL'>На выбранный год отсутсвует список направлений</option>");
+                else {
+                    var result = JSON.parse(data);
+                    if (Object.keys(result).length > 0) {
+                        for (i in result) {
+                            $('#selectedDisc').append('<option value="' + result[i]['discode'] + ' | ' + result[i]['discipline'] + '">' + result[i]['discipline'] + '</option>');
+                            i++;
+                        }
+                        document.getElementById('selectedDiscBlock').hidden = false;
+                        document.getElementById("selectedDisc").disabled = false;
+                        Notification('Дисциплины загружены', '', 'success');
+                    } else {
+                        Notification('Дисциплины на выбранный год набора и направление не найденны', '', 'error');
+                    }
+                    document.getElementById('loader').hidden = true;
+                }
+            },
+            error: function () {
+                Notification('Произошла ошибка при загрузке дисциплин', '', 'error');
+            }
+        })
+    }
+
+    //Отображение клопки завершений
+    function changeDisc() {
+        //Отключаем и сбрасываем все последующие селекты
+        reset_selects(3);
+        var speciality = document.getElementById("selectedSpec").value;
+        if (speciality == "") exit();
+        document.getElementById('loader').hidden = false;
+        //Запрос на загрузку направлений по году
+        var speciality = document.getElementById("selectedSpec").value;
+        $.ajax({
+            url: '{{ route( 'WorkProgram.getFGOS') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                speciality: speciality
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (Object.keys(result).length > 0) {
+                    for (i in result) {
+                        if (result[i]['fgos3_pp'] !== null) {
+                            $('#selectedFGOS').append('<option value="' + result[i]['fgos3_p'] + '">' + result[i]['fgos3_p'] + ' | ' + result[i]['fgos3_pp'] + '</option>');
+                        } else {
+                            $('#selectedFGOS').append('<option value="' + result[i]['fgos3_p'] + '">' + result[i]['fgos3_p'] + '</option>');
+                        }
+                        i++;
+                    }
+                    document.getElementById('selectedFGOSBlock').hidden = false;
+                    document.getElementById("selectedFGOS").disabled = false;
+                    Notification('ФГОС загружены', '', 'success');
+                } else {
+                    document.getElementById("btn-select-all").hidden = false;
+                    Notification("ФГОС по направлению не найденны", '', "warning");
+                }
+                document.getElementById('loader').hidden = true;
+            },
+            error: function () {
+                Notification("Произошла ошибка при выборе создании библиографической справки", '', "error");
+            }
+        })
+    }
+
+    function changeFGOS() {
+        var FGOS = document.getElementById("selectedFGOS").value;
+        if (FGOS == "") exit();
+        document.getElementById("btn-select-all").hidden = false;
+    }
+
+    //Подтверждение заполнения формы
+    function saveCreatingLibraryReport() {
+        var year = document.getElementById("selectedYear").value;
+        var speciality = document.getElementById("selectedSpec").value;
+        var discipline = document.getElementById("selectedDisc").value;
+        var fgos = document.getElementById("selectedFGOS").value;
+        $.ajax({
+            url: '{{ route( 'Compiler.create') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                year: year, speciality: speciality, discipline: discipline, fgos: fgos
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (Object.keys(result).length > 0) {
+                    Notification(result['message'], '', result['code']);
+                }
+                if (result['code'] == "success") {
+                timer = setTimeout(function () {
+                    window.location.reload();
+                }, 500);
+                }
+            },
+            error: function () {
+                Notification("Произошла ошибка создании библиографической справки", '', "error");
+            }
+        })
+    }
+    
+    function printOnlyOneSpecial(specilitycode, year) {
+        $.ajax({
+            url: '{{ route( 'PrintReportOnlyOneSpecial') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                Year: year, SpecialityCode: specilitycode
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result['code'] == "success") {
+                    Notification(result['message'], '', result['code']);
+                    //Сохранение
+                    var link = document.createElement('a');
+                    link.setAttribute('href', result['url']);
+                    link.setAttribute('download', result['name']);
+                    //link.attr('target','_blank');
+                    link.click();
+                }
+            },
+            error: function () {
+                Notification("Произошла ошибка попытке скачивания библиографической справки", '', "error");
+            }
+        })
+    }
+
+    function printOnlyOneDisc(specilitycode, year, disciplinecode) {
+        $.ajax({
+            url: '{{ route( 'PrintReportOnlyOneDisc') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                Year: year, SpecialityCode: specilitycode, DisciplineCode: disciplinecode
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result['code'] == "success") {
+                    Notification(result['message'], '', result['code']);
+
+                    //Сохранение
+                    var link = document.createElement('a');
+                    link.setAttribute('href', result['url']);
+                    link.setAttribute('download', result['name']);
+                    //link.attr('target','_blank');
+                    link.click();
+                }
+            },
+            error: function () {
+                Notification("Произошла ошибка попытке скачивания библиографической справки", '', "error");
+            }
+        })
+    }
 </script>
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
+
+<script src="{{ asset('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('node_modules/styleswitcher/jQuery.style.switcher.js') }}"></script>
+
+
+<!-- Footable -->
+<script src="{{ asset('node_modules/footable/js/footable.all.min.js') }}"></script>
+<!--FooTable init-->
+<script src="{{ asset('js/footable-init.js') }}"></script>
 
 <script src="{{ asset('js/fast_auth.js') }}"></script>
 

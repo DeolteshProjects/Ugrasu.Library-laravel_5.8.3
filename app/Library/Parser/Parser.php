@@ -27,6 +27,8 @@ class Parser {
     public $SmallDescription = "";
     //Ссылка на книгу
     public $Link = "(=^.^=)";
+    //Город издания
+    public $CityOfPublication = "";
 
     //Финальный массив
     public $ResultParseArray = [];
@@ -124,7 +126,7 @@ class Parser {
 
     //Метод получения общего количества экземпляров в библиотеке
     //Можно вводить как полную строку так и урезанную
-    //Для большей точности лучше урезанную
+    //Для большей точности лучше использовать урезанную строку поиска
     function getNumberOfCopies($line) {
         try {
             $Records = explode("<b>Имеются экземпляры в отделах: </b>", $line);
@@ -137,9 +139,46 @@ class Parser {
         } catch (Exception $exception) {}
     }
 
+    //Метод получения общего количества экземпляров в библиотеке
+    //Можно вводить как полную строку так и урезанную
+    //Для большей точности лучше урезанную
+    function getCityOfPublication($line) {
+    
+        //Не работает на сервере библиотеки ЮГУ
+        try {
+            $string = ". - "."!|([0-9]{1-2})|!"." -е изд.";
+            if (strpos(mb_strtoupper($line), mb_strtoupper($string))) {
+                //Обрезаем строку до города
+                $Records = explode("$string", $line);
+                $Records = $Records[1];
+                //Обрезаем строку до города
+                $Records = explode(". - ", $Records);
+                $Records = $Records[1];
+                //Обрезаем строку после города
+                $Records = explode(" : ", $Records);
+                $Records = $Records[0];
+            } else {
+                //Обрезаем строку до города
+                $Records = explode(". - ", $line);
+                $Records = $Records[1];
+                //Обрезаем строку после города
+                $Records = explode(" : ", $Records);
+                $Records = $Records[0];
+            }
+            $CityOfPublication = $Records;
+            if ($this->debug) echo "<div class='alert alert-success'><p>Город издания: ".$CityOfPublication."</p></div>";
+            //$this->CityOfPublication = trim($this->getCleanString($CityOfPublication));
+            $this->CityOfPublication = "Москва";
+            
+        } catch (Exception $exception) {
+            $this->CityOfPublication = "Неопределен";
+        }
+    }
 
+    //Получение года издания
     function getYearOfPublication($line) {
         $this->YearOfPublication = preg_replace("!|, ([0-9]{4}+[. -]{3})|.!", "\\1 ", $line);
+        //Получение последнего года издания
         $this->YearOfPublication = preg_replace("!|([0-9]{4})|.!", "\\1 ", $this->YearOfPublication);
         if ($this->debug) echo "<div class='alert alert-success'><p>Год издания: ".$this->YearOfPublication."</p></div>";
         $this->YearOfPublication = trim($this->getCleanString($this->YearOfPublication));
@@ -157,6 +196,7 @@ class Parser {
         if (!empty($this->NumberOfCopies)) $this->ResultParseArray['NumberOfCopies'] = $this->NumberOfCopies;
         if (!empty($this->SmallDescription)) $this->ResultParseArray['SmallDescription'] = $this->SmallDescription;
         if (!empty($this->Link)) $this->ResultParseArray['Link'] = $this->Link;
+        if (!empty($this->CityOfPublication)) $this->ResultParseArray['CityOfPublication'] = $this->CityOfPublication;
         return $this->ResultParseArray;
     }
 
@@ -191,20 +231,16 @@ class Parser {
 
     function getLink($line) {
         try {
-            if (strpos($line, "<a href=")) {
-                $line = explode("<a href=\"", $line);
-                $line = explode("\">", $line[1]);
-                $line = explode("</a>", $line[0]);
+            if (strpos($line, '<a href="https:\\"')) {
+                $line = explode('<a href="https:\\"', $line);
+                $line = explode('">', $line[1]);
+                $line = "https://".$line[0];
             }
-            if (strpos($line, "<A HREF=")) {
-                $line = explode("<A HREF=\"", $line);
-                $line = explode("\">", $line[1]);
-                $line = explode("</A>", $line[0]);
-            }
-            $this->Link = $line[0];
+            echo $line;
+            $this->Link = $line;
             if ($this->debug) echo "<div class='alert alert-success'><p>Ссылка на литературу: ". $this->Link ."</p></div>";
         } catch (Exception $exception) {
-            $this->Link = "Не содержит";
+            $this->Link = "(=^.^=)";
         }
     }
 
@@ -217,19 +253,15 @@ class Parser {
             $this->getViewOfPublication($line);
             $this->getSmallDescription($line);
             $this->getYearOfPublication($line);
+            $this->getCityOfPublication($line);
             if (strpos($line,"Имеются экземпляры в отделах")) {
                 $this->getNumberOfCopies($line);
             }
             if (strpos($line, "[Электронный ресурс]")) {
-                if (strpos($line, "<A HREF=")) {
-                    if (strpos($line, "U:\Издания РИЦ ЮГУ")) {
-                        $this->getNumberOfCopies($line);
-                    } else {
-                        $this->NumberOfCopies = "Неограниченно";
+                if (strpos($line, '<a href="https://')) {
+                    $this->NumberOfCopies = "Неограниченно";
                         $this->getLink($line);
-                    }
                 } else {
-                    $this->getNumberOfCopies($line);
                 }
             }
         }
