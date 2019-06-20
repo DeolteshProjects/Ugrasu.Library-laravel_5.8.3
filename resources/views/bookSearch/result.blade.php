@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.CompilerApp')
 @section('content')
 
     <div class="card">

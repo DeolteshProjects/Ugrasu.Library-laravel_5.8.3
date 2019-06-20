@@ -560,4 +560,51 @@ class Compiler extends Model
             return false;
         }
     }
+
+    public function show($year, $speciality, $discipline, $compiler, $createdate) {
+        $LR = DB::table('MY_LR_DISC')
+            ->select(['*'])
+            ->where('YEARED', $year)
+            ->where('SPECIALITY',$speciality)
+            ->where('DISCIPLINE', $discipline )
+            ->where('COMPILER', $compiler)
+            ->where('CREATEDATE', $createdate)
+            ->distinct()
+            ->get();
+        if ($LR) {
+            $Books = (unserialize(gzuncompress($LR[0]->literature)));
+            ($LR[0]->activity !== NULL) ? $Activity = (unserialize(gzuncompress($LR[0]->activity))) : $Activity = NULL;
+            $Answer = [
+                'LibraryReport' => [
+                    //Год набора
+                    'Yeared'=>$LR[0]->yeared,
+                    //Год обучения
+                    'Yeareds'=>$LR[0]->yeareds,
+                    'SpecialityCode'=>$LR[0]->specialitycode,
+                    'Speciality'=>$LR[0]->speciality,
+                    'DisciplineCode'=>$LR[0]->disciplinecode,
+                    'Discipline'=>$LR[0]->discipline,
+                    'Fgos'=>$LR[0]->fgos,
+                    'Compiler' => $LR[0]->compiler,
+                    'CreateDate' => $LR[0]->createdate,
+                    'Status' => $LR[0]->status,
+                    'UpdateDate' => $LR[0]->updatedate,
+                    'Activity' => $Activity
+                ],
+                //Общее число книг в справке
+                'AmountOfLiterature' => $Books['AmountOfLiterature']+1,
+                //Число печатных изданий
+                'AmountOftBookLiterature' => (isset($Books['AmountOftBookLiterature'])) ? $Books['AmountOftBookLiterature']+1 : 0,
+                //Печатные издания
+                'tBook' => (isset($Books['tBook'])) ? $Books['tBook'] : NULL,
+                //Число электронный изданий
+                'AmountOfeBookLiterature' => (isset($Books['AmountOfeBookLiterature'])) ? $Books['AmountOfeBookLiterature']+1 : 0,
+                //Электронные издания
+                'eBook' => (isset($Books['eBook'])) ? $Books['eBook'] : NULL,
+                //Активности справки
+                'Activity' => $Activity
+            ];
+            return $Answer;
+        } else return redirect(route('Compiler.home'));
+    }
 }

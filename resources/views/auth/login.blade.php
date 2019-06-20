@@ -59,13 +59,47 @@
                             <div class="alert alert-warning">
                                 <small>Данный блок установлен только на период разработки и тестирования системы</small>
                             </div>
+                            <div class="container">
+                            <div class="row">
                             <div class="col-md-12">
-                                <a class="btn btn-primary col-md-12" data-toggle="tooltip" title="Преподаватель"
-                                   href="{{ route('login',['auth_name'=>"Сафонов Егор Иванович"])}}"><i aria-hidden="true"
-                                                                                                 class="fa fa-user"></i>
-                                    <span class="text-center">Преподаватель</span></a>
+                                <!--
+                                    <i aria-hidden="true" class="fa fa-user"></i>
+                                 -->
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Сафонов Егор Иванович"])}}">
+                                    <span class="text-center">Сафонов Е.И.</span></a>
+                                    
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Усманов Руслан Талгатович"])}}"<i aria-hidden="true"
+                                                                                                        class="fa fa-user"></i>
+                                    <span class="text-center">Усманов Р. Т.</span></a>
+                                    </p>
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Шицелов Анатолий Вячеславович"])}}"<i aria-hidden="true"
+                                                                                                        class="fa fa-user"></i>
+                                    <span class="text-center">Шицелов А. В.</span></a>
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Яворук Олег Анатольевич"])}}"<i aria-hidden="true"
+                                                                                                        class="fa fa-user"></i>
+                                    <span class="text-center">Яворук О. А.</span></a>
+                                    </p>
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Русанов Михаил Александрович"])}}">
+                                    <span class="text-center">Русанов М. А.</span></a>
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Годовников Евгений Александрович"])}}">
+                                    <span class="text-center">Годовников Е. А.</span></a>
+                                    </p>
+                                <a class="btn btn-primary col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Семенов Сергей Петрович"])}}">
+                                    <span class="text-center">Семенов С. П.</span></a>
+                                <a class="btn btn-outline-success col-md-auto" data-toggle="tooltip" title="Преподаватель"
+                                   href="{{ route('login',['auth_name'=>"Алексеев Валерий Иванович"])}}">
+                                    <span class="text-center">Алексеев В. И.</span></a>
+                                    </p>
                             </div>
-                            </br>
+                            </div>
+                            </div>
                             <div class="col-md-12">
                                 <a class="btn btn-success col-md-12" data-toggle="tooltip" title="Библиотека"
                                    href="{{ route('login',['auth_name'=>"Кутлуахметова Салима Тухватовна"])}}"><i

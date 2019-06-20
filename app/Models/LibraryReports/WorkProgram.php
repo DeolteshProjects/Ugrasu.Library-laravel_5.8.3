@@ -23,7 +23,7 @@ class WorkProgram extends Model
     {
         //Запрос без учета уже составленных БС
         $QUERY = ("SELECT DISTINCT DISCIPLINE, DISCODE FROM V_RPD_DISC WHERE (FSPECIALITYCODE = '".trim((explode(" | ", $speciality))[0])."') AND (FYEARED = '".$year."') 
-        AND DISCIPLINE NOT IN ( SELECT DISTINCT DISCIPLINE FROM MY_LR_DISC WHERE (SPECIALITYCODE = '".trim((explode(" | ", $speciality))[0])."') AND (YEARED = '".$year."') AND (STATUS = '10'))");
+        AND DISCIPLINE NOT IN ( SELECT DISTINCT DISCIPLINE FROM MY_LR_DISC WHERE (SPECIALITYCODE = '".trim((explode(" | ", $speciality))[0])."') AND (YEARED = '".$year."') AND (STATUS = '10')) ORDER BY DISCIPLINE");
         return (json_encode(DB::select($QUERY)));
 
         //Обычный запрос

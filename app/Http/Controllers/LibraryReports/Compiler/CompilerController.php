@@ -41,11 +41,11 @@ class CompilerController extends Controller
         return ((new Compiler())->saveCreatingLibraryReportInDB());
     }
 
-    public function getCreatingLocalLibraryReportAction() {
+    public function getAction() {
         if (Session::has('LibraryReportDiscLocal.Creating')) {
-            return view('libraryReports.Compiler.CompilingLibraryReport', ((new Compiler())->getCreatingLocalLibraryReport()));
+            return view('libraryReports.Compiler.Compiling', ((new Compiler())->getCreatingLocalLibraryReport()));
         } else {
-            return redirect(route('home'));
+            return redirect(route('Library.home'));
         }
     }
 
@@ -71,7 +71,38 @@ class CompilerController extends Controller
     //Редактирование составленной БС
     public function editAction($year, $specialitycode, $disciplinecode) {
         ((new Compiler())->getLibraryReportForEdit($year, $specialitycode, $disciplinecode));
-        return redirect( route('Compiler.getCreatingLocalLibraryReport'));
+        return redirect( route('Compiler.get'));
+    }
+
+    //Отображение справки на экран
+    public function showAction() {
+        if ((isset($_GET['year'])) AND (isset($_GET['speciality'])) AND (isset($_GET['discipline'])) AND (isset($_GET['compiler'])) AND (isset($_GET['createdate']))) {
+            $Answer = (new Compiler())->show($_GET['year'], $_GET['speciality'], $_GET['discipline'], $_GET['compiler'], $_GET['createdate']);
+            return view ('libraryReports.Compiler.Show')->with([
+                'LibraryReport' => $Answer['LibraryReport'],
+                'AmountOfLiterature' => $Answer['AmountOfLiterature'],
+                'AmountOftBookLiterature' => $Answer['AmountOftBookLiterature'],
+                'tBook' => $Answer['tBook'],
+                'AmountOfeBookLiterature' => $Answer['AmountOfeBookLiterature'],
+                'eBook' =>  $Answer['eBook'],
+                'Activity' => $Answer['Activity']
+            ]);
+        } else {
+            return redirect( route('LibraryReportDiscLibraryCompiled.getAllOnlyNew'));
+        }
+    }
+
+    public function homeAction() {
+        if (Session::has('LibraryReportDiscLocal.Creating')) {
+            return redirect(route('Compiler.get'));
+        } else {
+            $LibraryReports = (new Compiler())->getAllFromAllLibraryReportSToPerson((Session::get('Authenticate.name')));
+            return view('libraryReports.Compiler.Home')->with([
+                    'LibraryReport' => $LibraryReports['LibraryReports'],
+                    'CountLibraryReport' => $LibraryReports['Counts']
+                ]
+            );
+        };
     }
 
 }
