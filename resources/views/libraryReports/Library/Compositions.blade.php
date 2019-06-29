@@ -4,9 +4,9 @@
         <h3 class="text-center card-title">Составленные библиографические справки</h3>
 
         <!-- Column -->
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Cоставленные библиографические справки по направлению обучения {{ $data['Created'][0]->speciality }} на {{ $data['Created'][0]->yeared }} год набора.</h4>
+        <div class="card row">
+            <div class="card-body col-md-12">
+                <h4 class="card-title">Cоставленные библиографические справки по направлению обучения {{ $data['Created'][0]->speciality }} на {{ $data['Created'][0]->yeared }} год набора. {{ $data['Created'][0]->forma }} форма обучения.</h4>
                 @if(((count($data['Created'])) + (count($data['None'])))>10)
                 <label class="form-inline">Показывать &nbsp;
                     <select id="demo-show-entries">
@@ -15,19 +15,19 @@
                         <option value="{{ ((count($data['Created'])) + (count($data['None']))) }}">Все</option>
                     </select> &nbsp; записей </label>
                 @endif
-                <table id="demo-foo-pagination" class="table m-b-0 toggle-arrow-tiny" data-page-size="">
-                    <thead>
-                    <tr class="row text-left">
-                        <th class="col-md-6" data-hide="discipline"> Дисциплина</th>
-                        <th class="col-md-3" data-hide="compiler"> Составитель</th>
-                        <th class="col-md-2 text-center" data-hide="status"> Состояние</th>
-                        <td class="col-md-1 text-center" data-hide="action"> Дейстивия</td>
-                    </tr>
+                <table id="demo-foo-pagination" class="table col-md-12 row toggle-arrow-tiny" data-page-size="">
+                    <thead class="col-md-12">
+                        <tr class="col-md-12 row text-left">
+                            <th class="col-md-6" data-hide="discipline"> Дисциплина</th>
+                            <th class="col-md-3" data-hide="compiler"> Составитель</th>
+                            <th class="col-md-2 text-center" data-hide="status"> Состояние</th>
+                            <td class="col-md-1 text-center" data-hide="action"> Дейстивия</td>
+                        </tr>
                     </thead>
 
-                    <tbody class="text-left">
+                    <tbody class="col-md-12 text-left">
                     @foreach($data['Created'] as $value)
-                        <tr class="row">
+                        <tr class="col-md-12 row">
                             <!-- Дисциплина -->
                             <td  class="col-md-6">{{ $value->discipline }}</td>
                             <!-- Составитель -->
@@ -44,9 +44,9 @@
                                         class="label label-light-success"><b>Принята библиотекой</b>
                                     @endif
                                     </span></td>
-                            <td class="col-md-1 text-center">
+                            <td class="col-md-1 row text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-info dropdown-toggle"
+                                    <button type="button" class="btn btn-outline-info btn-sm dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                         Действия
@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="alert-primary">
                                             @if (($value->status) == 10)
-                                                <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneDisc('{{ $value->specialitycode }}', '{{ $value->yeared }}', '{{ $value->disciplinecode }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
+                                                <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneDisc('{{ $value->specialitycode }}', '{{ $value->yeared }}', '{{ $value->disciplinecode }}', '{{ $value->forma }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
                                             @endif
                                         </div>
                                     </div>
@@ -67,11 +67,11 @@
                     @endforeach
 
                     @foreach($data['None'] as $value)
-                        <tr class="row">
+                        <tr class="col-md-12 row">
                             <!-- Дисциплина -->
                             <td  class="col-md-6">{{ $value->discipline }}</td>
                             <!-- Статус -->
-                            <td class="col-md-6 label-danger text-center" colspan="3"><span class="label label-danger"><b>Не составлялась</b></span></td>
+                            <td class="col label-danger text-center" colspan="3"><span class="label label-danger"><b>Не составлялась</b></span></td>
                         </tr>
                     @endforeach
                     </tbody>

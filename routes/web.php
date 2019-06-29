@@ -41,7 +41,7 @@ Route::group(['prefix' => 'Library', 'midlware' => ['auth']], function () {
     //Отображение только новых библиографических справок
     Route::get('/', 'LibraryReports\Library\LibraryController@getAllNewAction')->name('Library.home');
     //Отображение сотавляющих библиографическую справку по направлению обучения
-    Route::get('/Composition/{year}/{specialitycode}', 'LibraryReports\Library\LibraryController@compositionAction')->name('Library.Composition');
+    Route::get('/Composition/{year}/{specialitycode}/{forma}', 'LibraryReports\Library\LibraryController@compositionAction')->name('Library.Composition');
    //Отображение принятых библиографических справок по направлению
     Route::get('/Compiling', 'LibraryReports\Library\LibraryController@getCompilingAction')->name('Library.getSuccessSpec');
     //Отображение всех библиографических справок
@@ -71,8 +71,12 @@ Route::group(
     ['prefix' => 'WorkProgram'], function () {
     //Роут получения направлений по году
     Route::post('/getSpeciality', 'LibraryReports\WorkProgramController@getSpecialityAction')->name('WorkProgram.getSpeciality');
+    //Роут получения формы обучения по году набора и направлению обучения
+    Route::post('/getForms', 'LibraryReports\WorkProgramController@getFormAction')->name('WorkProgram.getForms');
     //Роут дисциплин по направлению и году
     Route::post('/getDisciplines', 'LibraryReports\WorkProgramController@getDisciplineAction')->name('WorkProgram.getDisciplines');
+    //Роут получения семестров дисциплин по направлению, году и форме обучения
+    Route::post('/getSemesters', 'LibraryReports\WorkProgramController@getSemesterAction')->name('WorkProgram.getSemester');
     //Роут для получения FGOS
     Route::post('/getFGOS', 'LibraryReports\WorkProgramController@getFGOSAction')->name('WorkProgram.getFGOS');
 });
@@ -98,7 +102,7 @@ Route::group(['prefix' => 'compiler', 'midlware' => ['auth']], function () {
     //Отображение БС из базы на экран
     Route::get('/show', 'LibraryReports\Compiler\CompilerController@showAction')->name('Compiler.show');
     //Редактирование составленной БС
-    Route::get('/edit/{year}/{specialitycode}/{disciplinecode}', 'LibraryReports\Compiler\CompilerController@editAction')->name('Compiler.edit');
+    Route::get('/edit/{year}/{specialitycode}/{disciplinecode}/{forma}', 'LibraryReports\Compiler\CompilerController@editAction')->name('Compiler.edit');
 });
 
 

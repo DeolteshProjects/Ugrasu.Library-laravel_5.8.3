@@ -40,7 +40,7 @@
                                             учебно-методической
                                             документацией программы направления
                                             подготовки {{ $LibraryReport['SpecialityCode'] }} {{ $LibraryReport['Speciality'] }}
-                                            , {{ $LibraryReport['Yeared'] }} год набора </b></h6></td>
+                                            , {{ $LibraryReport['Yeared'] }} год набора. {{ $LibraryReport['Forma'] }} форма обучения.</b></h6></td>
                             </tr>
                             @if($AmountOfLiterature == 0)
                                 <!-- Надо вырезать

@@ -20,11 +20,11 @@ class PrintToWordController extends Controller
     }
 
     public function printSpecialAction() {
-        return ((new PrintToWord())->printSpecial($_POST['Year'],$_POST['SpecialityCode']));
+        return ((new PrintToWord())->printSpecial($_POST['Year'],$_POST['SpecialityCode'], $_POST['Forma']));
     }
 
     public function printDiscAction() {
-        return ((new PrintToWord())->printDisc($_POST['Year'],$_POST['SpecialityCode'], $_POST['DisciplineCode']));
+        return ((new PrintToWord())->printDisc($_POST['Year'],$_POST['SpecialityCode'], $_POST['DisciplineCode'], $_POST['Forma']));
     }
 
 }

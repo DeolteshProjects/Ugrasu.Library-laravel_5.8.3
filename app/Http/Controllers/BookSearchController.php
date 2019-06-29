@@ -68,6 +68,8 @@ class BookSearchController extends Controller
                         $Answer = ((new BookSearchFilter())->filterByOldYearOfPublication($Answer));
                         //Фильтруем литературу по остаткам в библиотеке
                         if (Session::has('LibraryReportDiscLocal.Creating')) $Answer = ((new BookSearchFilter())->filterByStock($Answer));
+                        //Фильтруем литературу по количеству студентов
+                        if (Session::has('LibraryReportDiscLocal.Creating')) $Answer = ((new BookSearchFilter())->filterByCountStudents($Answer, Session::get('LibraryReportDiscLocal.Creating.Info.CountLiterature')));
                         //Если был введен автор, фильтруем по автору
                         if (!empty($_POST['bookAuthor'])) $Answer = (new BookSearchFilter())->filterByAuthor($_POST['bookAuthor'], $Answer);
                         //Если были введены стоп слова, фильтруем по стоп словам

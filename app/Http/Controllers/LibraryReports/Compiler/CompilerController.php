@@ -69,8 +69,8 @@ class CompilerController extends Controller
     }
 
     //Редактирование составленной БС
-    public function editAction($year, $specialitycode, $disciplinecode) {
-        ((new Compiler())->getLibraryReportForEdit($year, $specialitycode, $disciplinecode));
+    public function editAction($year, $specialitycode, $disciplinecode, $forma) {
+        ((new Compiler())->getLibraryReportForEdit($year, $specialitycode, $disciplinecode, $forma));
         return redirect( route('Compiler.get'));
     }
 

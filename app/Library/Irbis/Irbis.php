@@ -8,10 +8,10 @@ Class Irbis
     //0 - Сеть университета; 1 - Локальная сеть
 
     //Локальные переменные для переноса класса
-    private $ip = '192.168.6.30', $port = '6666', $sock;
-    //private $ip = '127.0.0.1', $port = '6666', $sock;
-    private $login = '1', $pass = '11';
-    //private $login = 'MASTER', $pass = 'MASTERKEY';
+    //private $ip = '192.168.6.30', $port = '6666', $sock;
+    private $ip = '127.0.0.1', $port = '6666', $sock;
+    //private $login = '1', $pass = '11';
+    private $login = 'MASTER', $pass = 'MASTERKEY';
     private $id = '554289', $seq = 0;
     
     /*АРМ ы
@@ -310,7 +310,7 @@ Class Irbis
         $searchNumber = 0;
 
         for ($i=0; $i<4; $i++) {
-            $Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, $this->pass, $this->login, '', '', '', $this->DataBase[$i], $Query, 10000, $first_record, $format));
+            $Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, $this->pass, $this->login, '', '', '', $this->DataBase[0], $Query, 10000, $first_record, $format));
             //$Packet = implode("\n", array('K',  $this->arm, 'K', $this->id, $this->seq++, '', '', '', '', '', $this->DataBase, $Query, $num_records, $first_record, $format));
             $Packet = strlen($Packet) . "\n" . $Packet;
 

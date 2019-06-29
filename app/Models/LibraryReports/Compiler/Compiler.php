@@ -18,17 +18,37 @@ class Compiler extends Model
     //Общие операции над справкой
     public function saveCreatingLocalLibraryReport($data)
     {
+
         $speciality = trim((explode(" | ", $data['speciality']))[1]);
         $fspecialitycode = trim((explode(" | ", $data['speciality']))[0]);
         $discipline = trim((explode(" | ", $data['discipline']))[1]);
         $disciplinecode = trim((explode(" | ", $data['discipline']))[0]);
         (isset($data['fgos'])) ? $fgos = trim($data['fgos']) : $fgos = NULL;
+
         //Проверяем что раньше такая справка не была создана
         $Check = DB::table('MY_LR_DISC')
             ->where('YEARED', trim($data["year"]))
             ->where('SPECIALITYCODE', $fspecialitycode)
             ->where('DISCIPLINECODE', $disciplinecode)
+            ->where('SEMESTER', trim($data["semester"]))
+            ->where('FORMA', trim($data["forma"]))
             ->get(['*']);
+        $year = trim($data['year']);
+
+
+
+        /* Определяем необходимое количество печатных изданий исходя из количества студентов и формы обучения */
+        ((trim($data['forma'])) == "Заочная") ? $CFORMA = 1 : $CFORMA = 0;
+        $CountStudents = DB::select("select sum(STUD_COUNT_ALL) as Stud_Count_All
+            from mf_IFE_vpo1
+            where (TypeReport = 'PlanNabora') AND (YearEnter = '".$year."') AND (CodeSpeciality = '".$fspecialitycode."') AND (CFORMA = '".(int)($CFORMA)."')"
+        );
+        $CountStudents = $CountStudents[0]->stud_count_all;
+        //Распредение на очное и заочное обучение
+        // 0.5 на заочное обучение и 0,25 на очное
+        ($CFORMA == 1) ? $CountLiterature = floor($CountStudents/2) : $CountLiterature = floor($CountStudents/4);
+        /* */
+
         if (!empty($Check[0])) {
             $Answer = [
                 'message' => "Данная библиографическая справка уже составлялась. Вы можете загрузить ее для редактирования.",
@@ -43,13 +63,17 @@ class Compiler extends Model
                 'Speciality' => trim($speciality),
                 'DisciplineCode' => trim($disciplinecode),
                 'Discipline' => trim($discipline),
+                'CountStudents' => $CountStudents,
                 'FGOS' => trim($fgos),
                 'Compiler' => trim(Session::get('Authenticate.name')),
                 'CreateDate' => date("Y-m-d H:i:s"),
                 'Literature' => NULL,
                 'Status' => '00',
                 'UpdateDate' => NULL,
-                'AddInFinalLibraryReport' => '0'
+                'AddInFinalLibraryReport' => '0',
+                'Forma' => trim($data['forma']),
+                'Semester' => trim($data['semester']),
+                'CountLiterature' => $CountLiterature
             ];
             Session::put('LibraryReportDiscLocal.Creating.Info', $LibraryReport);
             Session::save();
@@ -129,6 +153,7 @@ class Compiler extends Model
                 $Activity[0] = ['ActivityDate' => date('Y-m-d H:i:s'), 'ActivityPerson' => Session::get('Authenticate.name'), 'ActivityStatus' => 0, 'ActivityComment' => NULL];
                 //Сжимаем массив активности
                 $Activity = gzcompress(((serialize($Activity))), 9);
+
                 //Формируем запрос на запись справки в БД
                 $QUERY = "INSERT INTO MY_LR_DISC (
                                       YEARED, YEAREDS, 
@@ -136,13 +161,13 @@ class Compiler extends Model
                                       DISCIPLINECODE, DISCIPLINE, 
                                       FGOS, COMPILER, CREATEDATE, 
                                       LITERATURE, STATUS, UPDATEDATE, 
-                                      ADDEDINFINALLIBRARYREPORT, ACTIVITY) 
+                                      ADDEDINFINALLIBRARYREPORT, ACTIVITY, COUNTSTUDENTS, FORMA, SEMESTER) 
                                     VALUES (:YEARED, :YEAREDS, 
                                       :SPECIALITYCODE, :SPECIALITY, 
                                       :DISCIPLINECODE, :DISCIPLINE, 
                                       :FGOS, :COMPILER, :CREATEDATE, 
                                       :LITERATURE, :STATUS, :UPDATEDATE, 
-                                      :ADDEDINFINALLIBRARYREPORT, :ACTIVITY)";
+                                      :ADDEDINFINALLIBRARYREPORT, :ACTIVITY, :COUNTSTUDENTS, :FORMA, :SEMESTER)";
                 //Формируем массив атрибутов
                 $VALUES = [
                     'YEARED' => $LibraryReport['Yeared'],
@@ -158,7 +183,10 @@ class Compiler extends Model
                     'STATUS' => 0,
                     'UPDATEDATE' => NULL,
                     'ADDEDINFINALLIBRARYREPORT' => '0',
-                    'ACTIVITY' => $Activity
+                    'ACTIVITY' => $Activity,
+                    'COUNTSTUDENTS' =>  (int)($LibraryReport['CountStudents']),
+                    'FORMA' =>  $LibraryReport['Forma'],
+                    'SEMESTER' =>  $LibraryReport['Semester']
                 ];
                 //Выполняем запрос на запись в БД
                 if (DB::insert($QUERY, $VALUES)) {
@@ -218,7 +246,7 @@ class Compiler extends Model
         //Получение всех составленных пользователем БС
         $LibraryReports =
             DB::table('MY_LR_DISC')
-                ->select(['YEARED', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'CREATEDATE', 'UPDATEDATE', 'STATUS'])
+                ->select(['YEARED', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'CREATEDATE', 'UPDATEDATE', 'STATUS', 'COUNTSTUDENTS', 'FORMA', 'SEMESTER'])
                 ->where('COMPILER', $PERSON)
                 ->orderBy('SPECIALITY')
                 ->orderBy('DISCIPLINE')
@@ -524,7 +552,7 @@ class Compiler extends Model
     }
 
     //Получение составленной БС для редактирования
-    public function getLibraryReportForEdit($year, $specialitycode, $disciplinecode)
+    public function getLibraryReportForEdit($year, $specialitycode, $disciplinecode, $forma)
     {
         $LibraryReport = DB::table('MY_LR_DISC')
             ->select(['*'])
@@ -533,9 +561,19 @@ class Compiler extends Model
             //Убрать комментарий если можно будет редактировать БС только составителю
             //->where('COMPILER', '=', (Session::get('Authenticate.name')))
             ->where('DISCIPLINECODE', '=', $disciplinecode)
+            ->where('FORMA', $forma)
             //->where('STATUS', '=', 8)
             ->get(['*']);
+
         if ($LibraryReport != false) {
+
+
+            $CountStudents = $LibraryReport[0]->countstudents;
+            //Распредение на очное и заочное обучение
+            // 0.5 на заочное обучение и 0,25 на очное
+            ($LibraryReport[0]->forma == "Очная") ? $CountLiterature = floor($CountStudents/2) : $CountLiterature = floor($CountStudents/4);
+
+
             $LibraryReportInfo = [
                 'Yeared' => $LibraryReport[0]->yeared,
                 'Yeareds' => $LibraryReport[0]->yeareds,
@@ -547,6 +585,10 @@ class Compiler extends Model
                 'CreateDate' => $LibraryReport[0]->createdate,
                 'UpdateDate' => $LibraryReport[0]->updatedate,
                 'Fgos' => $LibraryReport[0]->fgos,
+                'CountStudents' => $LibraryReport[0]->countstudents,
+                'Forma' => $LibraryReport[0]->forma,
+                'Semester' => $LibraryReport[0]->semester,
+                'CountLiterature' => $CountLiterature
             ];
             $Literature = (unserialize(gzuncompress($LibraryReport[0]->literature)));
             $Activity = (unserialize(gzuncompress($LibraryReport[0]->activity)));
@@ -589,7 +631,10 @@ class Compiler extends Model
                     'CreateDate' => $LR[0]->createdate,
                     'Status' => $LR[0]->status,
                     'UpdateDate' => $LR[0]->updatedate,
-                    'Activity' => $Activity
+                    'Activity' => $Activity,
+                    'CountStudents' => $LR[0]->countstudents,
+                    'Forma' => $LR[0]->forma,
+                    'Semester' => $LR[0]->semester,
                 ],
                 //Общее число книг в справке
                 'AmountOfLiterature' => $Books['AmountOfLiterature']+1,

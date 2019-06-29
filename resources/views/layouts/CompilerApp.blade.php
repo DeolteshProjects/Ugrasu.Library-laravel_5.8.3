@@ -294,6 +294,20 @@
                             </div>
                             <!--/span-->
                             <!--/span-->
+                            <div class="col-md-12" id="selectedFormBlock" hidden>
+                                <div class="form-group text-center">
+                                    <label class="control-label">Форма обучения</label>
+                                    <select class="form-control custom-select"
+                                            style="text-align-last: center" id="selectedForm"
+                                            name="selectedForm"
+                                            type="text" onchange="changeForm()" disabled required>
+                                        <option value="" selected>Выберите форму обучения
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <!--/span-->
                             <div class="col-md-12" id="selectedDiscBlock" hidden>
                                 <div class="form-group text-center">
                                     <label class="control-label">Дисциплина</label>
@@ -305,7 +319,21 @@
                                     </select>
                                 </div>
                             </div>
-
+                            <!--/span-->
+                            <!--/span-->
+                            <div class="col-md-12" id="selectedSemesterBlock" hidden>
+                                <div class="form-group text-center">
+                                    <label class="control-label">Семестр</label>
+                                    <select class="form-control custom-select"
+                                            style="text-align-last: center" id="selectedSemester"
+                                            name="selectedSemester"
+                                            type="text" onchange="changeSemester()" disabled required>
+                                        <option value="" selected>Выберите семестр
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--/span-->
                             <!--/span-->
                             <div class="col-md-12" id="selectedFGOSBlock" hidden>
                                 <div class="form-group text-center">
@@ -315,6 +343,9 @@
                                             name="selectedFGOS"
                                             type="text" onchange="changeFGOS()" disabled required>
                                         <option value="" selected>Выберите ФГОС</option>
+                                        <option value="FGOS_3">ФГОС 3</option>
+                                        <option value="FGOS_3+">ФГОС 3+</option>
+                                        <option value="FGOS_3++">ФГОС 3++</option>
                                     </select>
                                 </div>
                             </div>
@@ -499,24 +530,52 @@
         switch (select) {
             case 1:
                 document.getElementById('selectedSpecBlock').hidden = true;
+                document.getElementById('selectedFormBlock').hidden = true;
                 document.getElementById('selectedDiscBlock').hidden = true;
+                //document.getElementById('selectedSemesterBlock').hidden = true;
                 document.getElementById('selectedFGOSBlock').hidden = true;
                 document.getElementById("selectedSpec").options.length = 1;
                 document.getElementById("selectedSpec").disabled = true;
+                document.getElementById('selectedForm').disabled = true;
+                document.getElementById("selectedDisc").disabled = true;
+                document.getElementById('selectedSemester').disabled = true;
+                document.getElementById('selectedFGOS').disabled = true;
                 document.getElementById("btn-select-all").hidden = true;
                 break;
             case 2:
+                document.getElementById('selectedFormBlock').hidden = true;
                 document.getElementById('selectedDiscBlock').hidden = true;
+                //document.getElementById('selectedSemesterBlock').hidden = true;
                 document.getElementById('selectedFGOSBlock').hidden = true;
-                document.getElementById('selectedFGOS').disabled = true;
-                document.getElementById("selectedDisc").options.length = 1;
+                document.getElementById("selectedForm").options.length = 1;
+                document.getElementById('selectedForm').disabled = true;
                 document.getElementById("selectedDisc").disabled = true;
+                document.getElementById('selectedSemester').disabled = true;
+                document.getElementById('selectedFGOS').disabled = true;
                 document.getElementById("btn-select-all").hidden = true;
                 break;
             case 3:
+                document.getElementById('selectedDiscBlock').hidden = true;
+                //document.getElementById('selectedSemesterBlock').hidden = true;
+                document.getElementById('selectedFGOSBlock').hidden = true;
+                document.getElementById("selectedDisc").options.length = 1;
+                document.getElementById("selectedDisc").disabled = true;
+                document.getElementById('selectedSemester').disabled = true;
+                document.getElementById('selectedFGOS').disabled = true;
+                document.getElementById("btn-select-all").hidden = true;
+                break;
+            case 4:
+                //document.getElementById('selectedSemesterBlock').hidden = true;
+                document.getElementById('selectedFGOSBlock').hidden = true;
+                document.getElementById("selectedSemester").options.length = 1;
+                document.getElementById('selectedSemester').disabled = true;
+                document.getElementById('selectedFGOS').disabled = true;
+                document.getElementById("btn-select-all").hidden = true;
+                break;
+            case 5:
                 document.getElementById('selectedFGOSBlock').hidden = true;
                 document.getElementById('selectedFGOS').disabled = true;
-                document.getElementById("selectedFGOS").options.length = 1;
+                //document.getElementById("selectedFGOS").options.length = 1;
                 break;
             default:
                 break;
@@ -605,9 +664,9 @@
                         }
                         document.getElementById('selectedSpecBlock').hidden = false;
                         document.getElementById("selectedSpec").disabled = false;
-                        Notification('Направления обучения успешно загружены', '', 'success');
+                        Notification('Направления обучения загружены', '', 'success');
                     } else {
-                        Notification('Направления на выбранный год набора не найдены', '', 'error');
+                        Notification('Направления не найдены', '', 'error');
                     }
                     document.getElementById('loader').hidden = true;
                 }
@@ -628,7 +687,7 @@
         if (speciality == "") exit();
         document.getElementById('loader').hidden = false;
         $.ajax({
-            url: '{{ route( 'WorkProgram.getDisciplines') }}',
+            url: '{{ route( 'WorkProgram.getForms') }}',
             type: 'POST',
             async: true,
             data: {
@@ -638,23 +697,59 @@
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-                if (!data)
-                    $('#selectedDisc').append("value='NULL'>На выбранный год отсутсвует список направлений</option>");
-                else {
-                    var result = JSON.parse(data);
-                    if (Object.keys(result).length > 0) {
-                        for (i in result) {
-                            $('#selectedDisc').append('<option value="' + result[i]['discode'] + ' | ' + result[i]['discipline'] + '">' + result[i]['discipline'] + '</option>');
-                            i++;
-                        }
-                        document.getElementById('selectedDiscBlock').hidden = false;
-                        document.getElementById("selectedDisc").disabled = false;
-                        Notification('Дисциплины загружены', '', 'success');
-                    } else {
-                        Notification('Дисциплины на выбранный год набора и направление не найденны', '', 'error');
+                var result = JSON.parse(data);
+                if (Object.keys(result).length > 0) {
+                    for (i in result) {
+                        $('#selectedForm').append('<option value="' + result[i]['forma'] + ' "> ' + result[i]['forma'] + ' </option>');
+                        i++;
                     }
-                    document.getElementById('loader').hidden = true;
+                    document.getElementById('selectedFormBlock').hidden = false;
+                    document.getElementById("selectedForm").disabled = false;
+                    Notification('Формы обучения загружены', '', 'success');
+                } else {
+                    Notification('Формы обучения не найденны', '', 'error');
                 }
+                document.getElementById('loader').hidden = true;
+            },
+            error: function () {
+                Notification('Произошла ошибка при загрузке форм обучения', '', 'error');
+            }
+        })
+    }
+
+    //Выбор направления и загрузка дисциплин
+    function changeForm() {
+        //Отключаем и сбрасываем все последующие селекты
+        reset_selects(3);
+        //Запрос на загрузку направлений по году
+        var year = document.getElementById("selectedYear").value;
+        var speciality = document.getElementById("selectedSpec").value;
+        var forma = document.getElementById("selectedForm").value;
+        document.getElementById('loader').hidden = false;
+        $.ajax({
+            url: '{{ route( 'WorkProgram.getDisciplines') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                year: year, speciality: speciality, forma: forma
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (Object.keys(result).length > 0) {
+                    for (i in result) {
+                        $('#selectedDisc').append('<option value="' + result[i]['discode'] + ' | ' + result[i]['discipline'] + '"> ' + result[i]['discipline'] + ' (' + result[i]['discode'] +  ') </option>');
+                        i++;
+                    }
+                    document.getElementById('selectedDiscBlock').hidden = false;
+                    document.getElementById("selectedDisc").disabled = false;
+                    Notification('Дисциплины загружены', '', 'success');
+                } else {
+                    Notification('Дисциплины не найденны', '', 'error');
+                }
+                document.getElementById('loader').hidden = true;
             },
             error: function () {
                 Notification('Произошла ошибка при загрузке дисциплин', '', 'error');
@@ -665,18 +760,61 @@
     //Отображение клопки завершений
     function changeDisc() {
         //Отключаем и сбрасываем все последующие селекты
-        reset_selects(3);
+        reset_selects(4);
+        var year = document.getElementById("selectedYear").value;
         var speciality = document.getElementById("selectedSpec").value;
-        if (speciality == "") exit();
+        var forma = document.getElementById("selectedForm").value;
+        var discipline = document.getElementById("selectedDisc").value;
         document.getElementById('loader').hidden = false;
-        //Запрос на загрузку направлений по году
+        $.ajax({
+            url: '{{ route( 'WorkProgram.getSemester') }}',
+            type: 'POST',
+            async: true,
+            data: {
+                year: year, speciality: speciality, forma: forma, discipline: discipline
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (Object.keys(result).length > 0) {
+                    for (i in result) {
+                        $('#selectedSemester').append('<option value="' + result[i]['fsemester'] + '"> ' + result[i]['fsemester'] + ' семестр </option>');
+                        i++;
+                    }
+                    document.getElementById('selectedSemesterBlock').hidden = false;
+                    document.getElementById("selectedSemester").disabled = false;
+                    Notification('Семестры загружены', '', 'success');
+                } else {
+                    document.getElementById("btn-select-all").hidden = false;
+                    Notification("Семестры не найденны", '', "warning");
+                }
+                document.getElementById('loader').hidden = true;
+            },
+            error: function () {
+                Notification("Произошла ошибка при загрузке семестров", '', "error");
+            }
+        })
+    }
+
+    //Отображение клопки завершений
+    function changeSemester() {
+        //Отключаем и сбрасываем все последующие селекты
+        reset_selects(5);
+        /*
+        var year = document.getElementById("selectedYear").value;
         var speciality = document.getElementById("selectedSpec").value;
+        var forma = document.getElementById("selectedForm").value;
+        var discipline = document.getElementById("selectedDisc").value;
+        var semester = document.getElementById("selectedSemester").value;
+        document.getElementById('loader').hidden = false;
         $.ajax({
             url: '{{ route( 'WorkProgram.getFGOS') }}',
             type: 'POST',
             async: true,
             data: {
-                speciality: speciality
+                year: year, speciality: speciality, forma: forma, discipline: discipline, semester: semester
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -705,6 +843,10 @@
                 Notification("Произошла ошибка при выборе создании библиографической справки", '', "error");
             }
         })
+        */
+        document.getElementById('selectedFGOSBlock').hidden = false;
+        document.getElementById("selectedFGOS").disabled = false;
+        Notification('ФГОС загружены', '', 'success');
     }
 
     function changeFGOS() {
@@ -717,14 +859,16 @@
     function saveCreatingLibraryReport() {
         var year = document.getElementById("selectedYear").value;
         var speciality = document.getElementById("selectedSpec").value;
+        var forma = document.getElementById("selectedForm").value;
         var discipline = document.getElementById("selectedDisc").value;
+        var semester = document.getElementById("selectedSemester").value;
         var fgos = document.getElementById("selectedFGOS").value;
         $.ajax({
             url: '{{ route( 'Compiler.create') }}',
             type: 'POST',
             async: true,
             data: {
-                year: year, speciality: speciality, discipline: discipline, fgos: fgos
+                year: year, speciality: speciality, forma: forma, discipline: discipline, semester:semester, fgos: fgos
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -746,13 +890,13 @@
         })
     }
 
-    function printOnlyOneDisc(specilitycode, year, disciplinecode) {
+    function printOnlyOneDisc(specilitycode, year, disciplinecode, forma) {
         $.ajax({
             url: '{{ route( 'PrintDisc') }}',
             type: 'POST',
             async: true,
             data: {
-                Year: year, SpecialityCode: specilitycode, DisciplineCode: disciplinecode
+                Year: year, SpecialityCode: specilitycode, DisciplineCode: disciplinecode, Forma: forma
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')

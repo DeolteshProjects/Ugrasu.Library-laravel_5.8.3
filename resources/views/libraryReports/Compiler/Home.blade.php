@@ -31,7 +31,8 @@
                         <thead>
                         <tr class="row text-left">
                             <th class="">Год</th>
-                            <th class="col-md-4">Направление обучения</th>
+                            <th class="col-md-1">Форма</th>
+                            <th class="col-md-3">Направление</th>
                             <th class="col-md-3">Дисциплина</th>
                             <th class="col-md-1 text-center">Состояние</th>
                             <th class="col-md-2">Составленна <p></p> Обновлена</th>
@@ -42,7 +43,8 @@
                         @foreach($LibraryReport as $value)
                             <tr class="row text-left">
                                 <td class="">{{ $value->yeared }}</td>
-                                <td class="col-md-4">{{ $value->speciality }}</td>
+                                <td class="col-md-1">{{ $value->forma }}</td>
+                                <td class="col-md-3">{{ $value->speciality }}</td>
                                 <td class="col-md-3">{{ $value->discipline }}</td>
                                 <td class="col-md-1 text-center">
                                     @if($value->status == 0)
@@ -64,19 +66,17 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <div class="alert-info">
-                                            <a class="dropdown-item btn btn-outline-info" href="{{ route('Compiler.show') }}?year={{ $value->yeared }}&speciality={{ $value->speciality }}&discipline={{ $value->discipline }}&compiler={{ Session::get('Authenticate.name') }}&createdate={{ $value->createdate }}"><i class="fa fa-eye"></i> Открыть</a>
+                                            <a class="dropdown-item btn btn-outline-info" href="{{ route('Compiler.show') }}?year={{ $value->yeared }}&speciality={{ $value->speciality }}&discipline={{ $value->discipline }}&compiler={{ Session::get('Authenticate.name') }}&createdate={{ $value->createdate }}&forma={{ $value->forma }}"><i class="fa fa-eye"></i> Открыть</a>
                                         </div>
                                         @if (($value->status) == 8)
                                         <div class="alert-warning">
                                             <a class="dropdown-item btn-outline-warning"
-                                               href="{{ route('Compiler.edit',['year' => $value->yeared, 'specialitycode' => $value->specialitycode, 'disciplinecode' => $value->disciplinecode])}}" >
+                                               href="{{ route('Compiler.edit',['year' => $value->yeared, 'specialitycode' => $value->specialitycode, 'disciplinecode' => $value->disciplinecode, 'forma' => $value->forma])}}" >
                                                 <i class="fa fa-pencil"></i> Редактировать</a>
                                         </div>
                                         @endif
                                         @if (($value->status) == 10)
-                                        <div class="alert-primary">
-                                            <button class="dropdown-item btn-outline-primary"><i class="fa fa-file-word-o"></i> Скачать</button>
-                                        </div>
+                                            <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneDisc('{{ $value->specialitycode }}', '{{ $value->yeared }}', '{{ $value->disciplinecode }}', '{{ $value->forma }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
                                         @endif
                                     </div>
                                 </td>

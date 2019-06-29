@@ -29,6 +29,21 @@
                                         @endif
                                         <div class="col-md-12">
                                             <h6>
+                                                </br> Форма обучения: <b>{{ $LibraryReport['Forma'] }}</b>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h6>
+                                                </br> Количество студентов: <b>{{ $LibraryReport['CountStudents'] }}</b>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h6>
+                                                </br> ФГОС : <b>{{ $LibraryReport['Fgos'] }}</b>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h6>
                                                 </br> Состояние: <b>
                                                     @if($LibraryReport['Status'] == 0)
                                                         <span class="label label-light-warning">Новая</span>
@@ -107,8 +122,7 @@
                                     </td>
                                     <td class="text-center align-middle">{{ $tBook['0']['NumberOfCopies'] }}
                                         из {{ $tBook[0]['Max'] }}</td>
-                                    <td class="text-center align-middle"><i
-                                                class="text-danger">1</i></td>
+                                    <td class="text-center align-middle"><i>1</i></td>
                             </tr>
                             @endif
                             @if ($AmountOftBookLiterature > 1)
@@ -121,7 +135,7 @@
                                         </td>
                                         <td class="text-center align-middle">{{ $tBook[$i]['NumberOfCopies'] }}
                                             из {{ $tBook[$i]['Max'] }}</td>
-                                        <td class="text-center align-middle"><i class="text-danger">1</i>
+                                        <td class="text-center align-middle"><i>1</i>
                                         </td>
                                     </tr>
                                 @endfor
@@ -138,7 +152,7 @@
                                     @endif</td>
                                 <td class="text-center align-middle">{{ $eBook[0]['NumberOfCopies'] }}
                                     из {{ $eBook[0]['Max'] }}</td>
-                                <td class="text-center align-middle"><i class="text-danger">1</i>
+                                <td class="text-center align-middle"><i>1</i>
                                 </td>
                                 </tr>
                             @endif
@@ -152,7 +166,7 @@
                                             @endif</td>
                                         <td class="text-center align-middle">{{ $eBook[$i]['NumberOfCopies'] }}
                                             из {{ $eBook[$i]['Max'] }}</td>
-                                        <td class="text-center align-middle"><i class="text-danger">1</i>
+                                        <td class="text-center align-middle"><i>1</i>
                                         </td>
                                     </tr>
                                 @endfor
@@ -228,12 +242,10 @@
                                     </div>
                                 @endif
                                 @if($LibraryReport['Status'] == 10)
-                                    <div class="alert-primary">
-                                        <a class="btn btn-outline-primary"
-                                                onclick="printOnlyOneDisc('{{ $LibraryReport['SpecialityCode'] }}', '{{ $LibraryReport['Yeared'] }}', '{{ $LibraryReport['DisciplineCode'] }}')">
-                                            <i class="fa fa-file-word-o"></i> Скачать
-                                        </a>
-                                    </div>
+                                    <button class="btn btn-primary col-md-auto"
+                                            onclick="printOnlyOneDisc('{{ $LibraryReport['SpecialityCode'] }}', '{{ $LibraryReport['Yeared'] }}', '{{ $LibraryReport['DisciplineCode'] }}', '{{ $LibraryReport['Forma'] }}')">
+                                        <i class="fa fa-file-word-o"></i> Скачать
+                                    </button>
                                 @endif
                             </div>
                         @endif

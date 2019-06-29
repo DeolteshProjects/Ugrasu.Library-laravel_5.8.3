@@ -281,13 +281,13 @@
         });
     }
 
-    function printOnlyOneSpecial(specilitycode, year) {
+    function printOnlyOneSpecial(specilitycode, year, forma) {
         $.ajax({
             url: '{{ route( 'PrintSpecial') }}',
             type: 'POST',
             async: true,
             data: {
-                Year: year, SpecialityCode: specilitycode
+                Year: year, SpecialityCode: specilitycode, Forma: forma
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -310,13 +310,13 @@
         })
     }
 
-    function printOnlyOneDisc(specilitycode, year, disciplinecode) {
+    function printOnlyOneDisc(specilitycode, year, disciplinecode, forma) {
         $.ajax({
             url: '{{ route( 'PrintDisc') }}',
             type: 'POST',
             async: true,
             data: {
-                Year: year, SpecialityCode: specilitycode, DisciplineCode: disciplinecode
+                Year: year, SpecialityCode: specilitycode, DisciplineCode: disciplinecode, Forma: forma
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')

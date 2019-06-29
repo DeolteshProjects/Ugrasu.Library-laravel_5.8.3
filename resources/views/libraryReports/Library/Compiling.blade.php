@@ -29,8 +29,9 @@
                 <table id="demo-foo-pagination" class="table m-b-0 toggle-arrow-tiny" data-page-size="">
                     <thead>
                     <tr class="row text-left">
-                        <th class="col-md-2" data-toggle="true"> Год набора</th>
-                        <th class="col-md-8" data-hide="speciality"> Направление обучения</th>
+                        <th class="col-md-1" data-toggle="true"> Год набора</th>
+                        <th class="col-md-1" data-toggle="true"> Форма</th>
+                        <th class="col-md-8" data-hide="speciality"> Направление</th>
                         <td class="col-md-2 text-center" data-hide="action"> Дейстивия</td>
                     </tr>
                     </thead>
@@ -39,7 +40,9 @@
                     @foreach($data as $value)
                         <tr class="row">
                             <!-- Год набора -->
-                            <td class="col-md-2">{{ $value->yeared }}</td>
+                            <td class="col-md-1">{{ $value->yeared }}</td>
+                            <!-- Форма обучения -->
+                            <td class="col-md-1">{{ $value->forma }}</td>
                             <!-- Направление обучения -->
                             <td  class="col-md-8">{{ $value->specialitycode }} - {{ $value->speciality }}</td>
                             <!-- Дисциплина -->
@@ -53,10 +56,10 @@
                                     <div class="dropdown-menu">
                                         <div class="alert-info">
 
-                                            <a class="dropdown-item btn btn-outline-info" href="{{ route('Library.Composition',['year'=>$value->yeared, 'specialitycode' => $value->specialitycode])}}"><i class="fa fa-list-alt"></i> Составляющие</a>
+                                            <a class="dropdown-item btn btn-outline-info" href="{{ route('Library.Composition',['year'=>$value->yeared, 'specialitycode' => $value->specialitycode, 'forma' => $value->forma])}}"><i class="fa fa-list-alt"></i> Составляющие</a>
                                         </div>
                                         <div class="alert-primary">
-                                                <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneSpecial('{{ $value->specialitycode }}', '{{ $value->yeared }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
+                                                <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneSpecial('{{ $value->specialitycode }}', '{{ $value->yeared }}', '{{ $value->forma }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
                                         </div>
                                     </div>
                                 </div>

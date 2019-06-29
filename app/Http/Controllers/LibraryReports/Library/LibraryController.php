@@ -57,8 +57,8 @@ class LibraryController extends Controller
             ]);
     }
 
-    public function compositionAction($year, $specialitycode) {
-        $data =  ((new Library())->getComposition($year,$specialitycode));
+    public function compositionAction($year, $specialitycode, $forma) {
+        $data =  ((new Library())->getComposition($year, $specialitycode, $forma));
         if (empty($data['Created'])) {
             return redirect(route('SqlError'));
         }

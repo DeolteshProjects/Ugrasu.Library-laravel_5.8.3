@@ -26,11 +26,25 @@ class WorkProgramController extends Controller
         return ((new WorkProgram())->getSpeciality($_POST['year']));
     }
 
+    //Получение формы обучения
+    public function getFormAction()
+    {
+        //Проверяем не была ли до этого момента составленна эта БС
+        return ((new WorkProgram())->getForms($_POST['speciality'], $_POST['year']));
+    }
+
     //Получение дисциплин
     public function getDisciplineAction()
     {
         //Проверяем не была ли до этого момента составленна эта БС
-        return ((new WorkProgram())->getDisciplines($_POST['speciality'], $_POST['year']));
+        return ((new WorkProgram())->getDisciplines($_POST['speciality'], $_POST['year'], $_POST['forma']));
+    }
+
+    //Получение семестров
+    public function getSemesterAction()
+    {
+        //Проверяем не была ли до этого момента составленна эта БС
+        return ((new WorkProgram())->getSemesters($_POST['speciality'], $_POST['year'], $_POST['forma'], $_POST['discipline']));
     }
 
     //Получение ФГОСов

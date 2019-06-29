@@ -25,8 +25,9 @@
                 <table id="demo-foo-pagination" class="table m-b-0 toggle-arrow-tiny" data-page-size="">
                     <thead>
                     <tr class="row text-left">
-                        <th class="col-md-1" data-toggle="true"> Год набора</th>
-                        <th class="col-md-4" data-hide="speciality"> Направление обучения</th>
+                        <th class="data-toggle="true"> Год</th>
+                        <th class="col-md-1" data-toggle="true"> Форма</th>
+                        <th class="col-md-3" data-hide="speciality"> Направление</th>
                         <th class="col-md-3" data-hide="discipline"> Дисциплина</th>
                         <th class="col-md-2" data-hide="compiler"> Составитель</th>
                         <th class="col-md-1 text-center" data-hide="status"> Состояние</th>
@@ -35,6 +36,8 @@
                         <th data-hide="all"> Учебный год</th>
                         <th data-hide="all"> Код специальности</th>
                         <th data-hide="all"> Специальность</th>
+                        <th data-hide="all"> Форма обучения</th>
+                        <th data-hide="all"> Количество студентов</th>
                         <th data-hide="all"> Код дисциплины</th>
                         <th data-hide="all"> Дисциплина</th>
                         <th data-hide="all"> ФГОС</th>
@@ -47,15 +50,18 @@
                     @foreach($data as $value)
                         <tr class="row">
                             <!-- Год набора -->
-                            <td class="col-md-1">{{ $value->yeareds }}</td>
+                            <td class="">{{ $value->yeared }}</td>
                             <!-- Направление обучения -->
-                            <td  class="col-md-4">{{ $value->speciality }}</td>
+                            <td  class="col-md-1">{{ $value->forma }}</td>
+                            <!-- Направление обучения -->
+                            <td  class="col-md-3">{{ $value->speciality }}</td>
                             <!-- Дисциплина -->
                             <td  class="col-md-3">{{ $value->discipline }}</td>
                             <!-- Составитель -->
                             <td  class="col-md-2">{{ $value->compiler }}</td>
                             <!-- Статус -->
                             <td class="col-md-1 text-center"><span class="label label-light-success"><b>Принята библиотекой</b></span></td>
+                            <!-- Составитель -->
                             <!-- Составитель -->
                             <td>{{ $value->compiler }}</td>
                             <!-- Год набора -->
@@ -66,6 +72,10 @@
                             <td>{{ $value->specialitycode }}</td>
                             <!-- Направление обучения -->
                             <td>{{ $value->speciality }}</td>
+                            <!-- Форма обучения -->
+                            <td>{{ $value->forma }}</td>
+                            <!-- Форма количество студентов -->
+                            <td>{{ $value->countstudents }}</td>
                             <!-- Код дисциплины -->
                             <td>{{ $value->disciplinecode }}</td>
                             <!-- Дисциплина -->
@@ -73,7 +83,7 @@
                             <!-- ФГОС -->
                             <td>{{ $value->fgos }}</td>
                             <!-- Составленна / Обновлена -->
-                            <td>{{ $value->createdate }} / {{ $value->updatedate }}</td>
+                            <td>{{ $value->createdate }}<p>{{ $value->updatedate }}</td>
                             <td class="col-md-1 text-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-outline-info dropdown-toggle"
@@ -87,7 +97,7 @@
                                         </div>
                                             @if (($value->status) == 10)
                                             <div class="alert-primary">
-                                                    <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneDisc('{{ $value->specialitycode }}', '{{ $value->yeared }}', '{{ $value->disciplinecode }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
+                                                    <button class="dropdown-item btn-outline-primary" onclick="printOnlyOneDisc('{{ $value->specialitycode }}', '{{ $value->yeared }}', '{{ $value->disciplinecode }}', '{{ $value->forma }}')"><i class="fa fa-file-word-o"></i> Скачать</button>
                                             </div>
                                             @endif
                                     </div>

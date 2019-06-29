@@ -25,7 +25,7 @@ class Library extends Model
             ->orderBy('SPECIALITY')
             ->orderBy('DISCIPLINE')
             ->orderByDesc('CREATEDATE')
-            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS'])
+            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS', 'FORMA', 'COUNTSTUDENTS'])
         );
     }
 
@@ -38,7 +38,7 @@ class Library extends Model
             ->orderBy('SPECIALITY')
             ->orderBy('DISCIPLINE')
             ->orderByDesc('CREATEDATE')
-            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS'])
+            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS', 'FORMA', 'COUNTSTUDENTS'])
         );
     }
 
@@ -51,7 +51,7 @@ class Library extends Model
             ->orderBy('SPECIALITY')
             ->orderBy('DISCIPLINE')
             ->orderByDesc('CREATEDATE')
-            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS'])
+            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS', 'FORMA', 'COUNTSTUDENTS'])
         );
     }
 
@@ -62,20 +62,20 @@ class Library extends Model
             ->orderBy('SPECIALITY')
             ->orderBy('DISCIPLINE')
             ->orderByDesc('CREATEDATE')
-            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS'])
+            ->get(['YEARED', 'YEAREDS', 'SPECIALITYCODE', 'SPECIALITY', 'DISCIPLINECODE', 'DISCIPLINE', 'FGOS', 'COMPILER', 'CREATEDATE', 'UPDATEDATE', 'STATUS', 'FORMA', 'COUNTSTUDENTS'])
         );
     }
 
     public function getCompiling()
     {
         return (
-        DB::select("SELECT DISTINCT YEARED, SPECIALITY, SPECIALITYCODE FROM MY_LR_DISC")
+        DB::select("SELECT DISTINCT YEARED, SPECIALITY, SPECIALITYCODE, FORMA FROM MY_LR_DISC")
         //DB::select("SELECT DISTINCT YEARED, SPECIALITY, SPECIALITYCODE FROM MY_LR_DISC WHERE SPECIALITYCODE IN (SELECT SPECIALITYCODE FROM MY_LR_DISC WHERE (STATUS = 10))")
         );
     }
 
-    public function getComposition($year, $specialitycode) {
-        $Created = DB::select("SELECT YEARED, SPECIALITY, SPECIALITYCODE, DISCIPLINECODE, DISCIPLINE, COMPILER, STATUS, CREATEDATE FROM MY_LR_DISC WHERE YEARED='".$year."' AND SPECIALITYCODE='".$specialitycode."'");
+    public function getComposition($year, $specialitycode, $forma) {
+        $Created = DB::select("SELECT YEARED, SPECIALITY, SPECIALITYCODE, DISCIPLINECODE, DISCIPLINE, COMPILER, STATUS, CREATEDATE, FORMA FROM MY_LR_DISC WHERE YEARED='".$year."' AND SPECIALITYCODE='".$specialitycode."' AND FORMA='".$forma."'");
         $None = DB::select("SELECT DISTINCT FYEARED, SPECIALITY, DISCIPLINE FROM V_RPD_DISC WHERE FSPECIALITYCODE = '".trim($specialitycode)."' AND FYEARED=".$year." AND DISCIPLINE NOT IN (SELECT DISTINCT DISCIPLINE FROM MY_LR_DISC WHERE YEARED=".$year." AND SPECIALITYCODE='".trim($specialitycode)."')");
         if (count($Created) > 0) {
             $Composition = ['Created'=>$Created, 'None'=>$None];
@@ -112,7 +112,9 @@ class Library extends Model
                     'CreateDate' => $LR[0]->createdate,
                     'Status' => $LR[0]->status,
                     'UpdateDate' => $LR[0]->updatedate,
-                    'Activity' => $Activity
+                    'Activity' => $Activity,
+                    'CountStudents' => $LR[0]->countstudents,
+                    'Forma' => $LR[0]->forma,
                 ],
                 //Общее число книг в справке
                 'AmountOfLiterature' => $Books['AmountOfLiterature']+1,

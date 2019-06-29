@@ -98,4 +98,26 @@ class BookSearchFilter extends Model
         }
         return $Result;
     }
+
+    public function filterByCountStudents($Literature, $CountLiterature) {
+        $Result = [];
+        $j = 0;
+        for ($i = 0; $i < count($Literature); $i++) {
+            $pos = (strpos(mb_strtoupper($Literature[$i]['SmallDescription']), (mb_strtoupper("[Электронный ресурс]"))));
+            if ($pos === false) {
+                if (isset($Literature[$i]['NumberOfCopies'])) {
+                    if ($Literature[$i]['NumberOfCopies'] !== "Неограниченно") {
+                        if ($Literature[$i]['NumberOfCopies'] >= $CountLiterature) {
+                            $Result[$j] = $Literature[$i];
+                            $j++;
+                        }
+                    }
+                }
+            } else {
+                $Result[$j] = $Literature[$i];
+                $j++;
+            }
+        }
+        return $Result;
+    }
 }

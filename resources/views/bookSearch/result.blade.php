@@ -222,7 +222,7 @@
                         //var NumberOfCopies = document.getElementById("quantity").value;
                         //var NumberOfCopies
                         var Max = document.getElementById("quantity").max;
-                        NumberOfCopies = 3;
+                        NumberOfCopies = {{ floor((Session::get('LibraryReportDiscLocal.Creating.Info.CountStudents'))/4) }};
                         $.ajax({
                             url: '{{ route('Compiler.addBook') }}',
                             type: 'POST',
@@ -246,7 +246,7 @@
                                     document.getElementById("linkLibraryReportsSeed").hidden = false;
                                 }
                                 document.getElementById("search_result_" + id).hidden = true;
-                                document.getElementById("compilingLink").href = "{{ route('Compiler.getCreatingLocalLibraryReport') }}";
+                                document.getElementById("compilingLink").href = "{{ route('Compiler.get') }}";
                                 document.getElementById("compilingLink").innerText = "Перейти к составляемой справке";
                                 document.getElementById("compilingLink").removeAttribute('data-toggle');
                                 document.getElementById("compilingLink").removeAttribute('data-target');

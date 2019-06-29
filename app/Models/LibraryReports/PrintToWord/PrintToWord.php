@@ -106,7 +106,7 @@ class PrintToWord extends Model
         //9.Готово
     }
 
-    public function printSpecial($year,$specialitycode)
+    public function printSpecial($year, $specialitycode, $forma)
     {
         //Получение справок выбранным году и специальности
         $LibraryReports =
@@ -114,6 +114,7 @@ class PrintToWord extends Model
                 ->select(['*'])
                 ->where('SPECIALITYCODE','=', $specialitycode)
                 ->where('YEARED', '=', $year)
+                ->where('FORMA' , $forma)
                 ->where('STATUS' , '=',10)
                 ->orderBy('DISCIPLINE')
                 ->distinct()
@@ -184,7 +185,7 @@ class PrintToWord extends Model
         return json_encode($message, JSON_UNESCAPED_UNICODE);
     }
 
-    public function printDisc($year,$specialitycode, $disciplinecode)
+    public function printDisc($year, $specialitycode, $disciplinecode, $forma)
     {
         
         //Получение справок выбранным году и специальности
@@ -194,6 +195,7 @@ class PrintToWord extends Model
                 ->where('YEARED', '=', $year)
                 ->where('SPECIALITYCODE','=', $specialitycode)
                 ->where('DISCIPLINECODE' , '=',$disciplinecode)
+                ->where('FORMA' , '=', $forma)
                 ->where('STATUS' , '=',10)
                 ->orderBy('DISCIPLINE')
                 ->distinct()
