@@ -36,12 +36,12 @@ return [
 
         'oracle_local' => [
             'driver' => 'oracle',
-            'host' => '192.168.100.18',
+            'host' => 
             'port' => '1521',
-            'database' => 'gala',
-            'service_name' => 'gala',
-            'username' => 'ELIOS',
-            'password' => 'watchdogsmopskoks647',
+            'database' => 
+            'service_name' => 
+            'username' => 
+            'password' => 
             'charset' => 'AL32UTF8',
             'prefix' => '',
         ],
